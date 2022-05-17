@@ -20,13 +20,20 @@ OBJS = $(SRCS:.c=.o)
 
 CLIB = ar -rcs
 
+GNL_DIR = ./get_next_line/
+
+GNL = get_next_line.c \
+	get_next_line_utils.c \
+
+GNL_OBJS = ${addprefix ${GNL_DIR}, ${GNL:.c=.o}}
+
 all : $(NAME)
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OBJS) $(GNL_OBJS)
+	$(CC) $(OBJS) $(GNL_OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
 	rm -f $(OBJS)
