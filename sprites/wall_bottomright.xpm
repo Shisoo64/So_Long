@@ -1,0 +1,28 @@
+/* XPM */
+static char *ff3dc4dd68604920fa41b3d240d0d879te0dCEcDwtZyleJS[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1 ",
+"  c black",
+". c #3A4466",
+"X c #C0CBDC",
+"o c white",
+"O c #5A6988",
+"+ c #8B9BB4",
+/* pixels */
+"....XXXoXXX.OX++",
+"XXXoXXXoooo.OX++",
+"XXXoXXXoXXX.OO++",
+"ooooooooXXX.OOOO",
+"XXXXXXXoXXX.++++",
+"XXXXXXXoXXX.++++",
+"+++++++X+++.++++",
+"+++++++X+++.++++",
+"XXXXXXXXXXX.++++",
+"+++++X+++++.++++",
+"+++++X+++++.OOOO",
+"XXXXXXXXXXX.++++",
+"+X++++++X++.++++",
+"+X++++++X++.X+++",
+"............OX++",
+"+++OX+++++++OX++"
+};
