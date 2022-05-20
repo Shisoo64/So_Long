@@ -14,7 +14,7 @@ SRCS =	main.c
 
 CC = gcc
 
-NAME = so_long.a
+NAME = so_long
 
 OBJS = $(SRCS:.c=.o)
 

@@ -14,6 +14,21 @@ typedef struct	s_sprites {
 	void	*exit;
 }				t_sprites;
 
+static int	exit_hook(void)
+{
+	exit(0);
+}
+
+int	inputs(int keycode, t_vars *vars)
+{
+	if(keycode == 27)
+	{
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(0);
+	}
+	return (0);
+}
+
 int	get_map_height()
 {
 	int	fd;
@@ -105,6 +120,8 @@ int	main(void)
 	sprites = get_sprites(vars);
 	vars.map = create_map();
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * 64, IMG_SIZE * 64, "Super Romil!");
+	mlx_key_hook(vars.win, inputs, &vars);
+	mlx_hook(vars.win, 17, 0, exit_hook, &vars);
 	print_map(vars, sprites);
 
 	mlx_loop(vars.mlx);
