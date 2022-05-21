@@ -28,10 +28,10 @@
 
 enum e_keycode
 {
-	KEY_UP = 50,
-	KEY_DOWN = 51,
-	KEY_LEFT = 52,
-	KEY_RIGHT = 53,
+	KEY_UP = 115,
+	KEY_DOWN = 119,
+	KEY_LEFT = 97,
+	KEY_RIGHT = 100,
 	ESC = 27
 };
 
