@@ -1,11 +1,5 @@
 #include "so_long.h"
 
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-	char	**map;
-}				t_vars;
-
 typedef struct	s_sprites {
 	void	*floor;
 	void	*wall;
@@ -14,18 +8,71 @@ typedef struct	s_sprites {
 	void	*exit;
 }				t_sprites;
 
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+	char	**map;
+	int	collec;
+	t_sprites	sprites;
+}				t_vars;
+
 static int	exit_hook(void)
 {
+	//free all
 	exit(0);
 }
 
-int	inputs(int keycode, t_vars *vars)
+int	move_player(int diry, int dirx, t_vars *vars)
 {
-	if(keycode == 27)
+	int	x;
+	int	y;
+
+	y = -1;
+	while(vars->map[++y])
+	{
+		x = -1;
+		while(vars->map[y][++x])
+		{
+			if(vars->map[y][x] == 'P' && (vars->map[y + diry][x + dirx] == '0' || vars->map[y + diry][x + dirx] == 'C'))
+			{
+				if(vars->map[y + diry][x + dirx] == 'C')
+					vars->collec--;
+				vars->map[y][x] = '0';
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.floor, IMG_SIZE * x, IMG_SIZE * y);
+				vars->map[y + diry][x + dirx] = 'P';
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.player, IMG_SIZE * (x + dirx), IMG_SIZE * (y + diry));
+				return(1);
+			}
+			if(vars->map[y][x] == 'P' && vars->map[y + diry][x + dirx] == 'E' && vars->collec == 0)
+				exit(0);
+		}
+	}
+	return(0);
+}
+
+void	cycle(int key, t_vars *vars)
+{
+	if(key == KEY_UP)
+		move_player(1, 0, vars);
+	else if(key == KEY_LEFT)
+		move_player(0, -1, vars);
+	else if(key == KEY_DOWN)
+		move_player(-1, 0, vars);
+	else if(key == KEY_RIGHT)
+		move_player(0, 1, vars);
+	else
+		return;
+}
+
+int	inputs(int key, t_vars *vars)
+{
+	if (key == ESC)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 	}
+	else
+		cycle(key, vars);
 	return (0);
 }
 
@@ -69,7 +116,7 @@ char	**create_map()
 
 t_sprites	get_sprites(t_vars vars)
 {
-	t_sprites	sprites;
+	t_sprites sprites;
 	char	*floor_path = "./sprites/floor.xpm";
 	char	*wall_path = "./sprites/wall.xpm";
 	char	*collec_path = "./sprites/collec.xpm";
@@ -86,27 +133,30 @@ t_sprites	get_sprites(t_vars vars)
 	return (sprites);
 }
 
-void	print_map(t_vars vars, t_sprites sprites)
+void	print_map(t_vars *vars)
 {
 	int	x;
 	int	y;
 
 	y = -1;
-	while(vars.map[++y])
+	while(vars->map[++y])
 	{
 		x = -1;
-		while(vars.map[y][++x])
+		while(vars->map[y][++x])
 		{
-			if(vars.map[y][x] == '0')
-				mlx_put_image_to_window(vars.mlx, vars.win, sprites.floor, IMG_SIZE * x, IMG_SIZE * y);
-			if(vars.map[y][x] == '1')
-				mlx_put_image_to_window(vars.mlx, vars.win, sprites.wall, IMG_SIZE * x, IMG_SIZE * y);
-			if(vars.map[y][x] == 'C')
-				mlx_put_image_to_window(vars.mlx, vars.win, sprites.collec, IMG_SIZE * x, IMG_SIZE * y);
-			if(vars.map[y][x] == 'P')
-				mlx_put_image_to_window(vars.mlx, vars.win, sprites.player, IMG_SIZE * x, IMG_SIZE * y);
-			if(vars.map[y][x] == 'E')
-				mlx_put_image_to_window(vars.mlx, vars.win, sprites.exit, IMG_SIZE * x, IMG_SIZE * y);
+			if(vars->map[y][x] == '0')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.floor, IMG_SIZE * x, IMG_SIZE * y);
+			if(vars->map[y][x] == '1')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.wall, IMG_SIZE * x, IMG_SIZE * y);
+			if(vars->map[y][x] == 'P')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.player, IMG_SIZE * x, IMG_SIZE * y);
+			if(vars->map[y][x] == 'E')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.exit, IMG_SIZE * x, IMG_SIZE * y);
+			if(vars->map[y][x] == 'C')
+			{
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.collec, IMG_SIZE * x, IMG_SIZE * y);
+				vars->collec++;
+			}
 		}
 	}
 }
@@ -114,15 +164,15 @@ void	print_map(t_vars vars, t_sprites sprites)
 int	main(void)
 {
 	t_vars	vars;
-	t_sprites	sprites;
 
 	vars.mlx = mlx_init();
-	sprites = get_sprites(vars);
+	vars.collec = 0;
+	vars.sprites = get_sprites(vars);
 	vars.map = create_map();
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * 64, IMG_SIZE * 64, "Super Romil!");
 	mlx_key_hook(vars.win, inputs, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, &vars);
-	print_map(vars, sprites);
+	print_map(&vars);
 
 	mlx_loop(vars.mlx);
 }

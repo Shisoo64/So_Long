@@ -26,4 +26,13 @@
 
 # define IMG_SIZE 16
 
+enum e_keycode
+{
+	KEY_UP = 50,
+	KEY_DOWN = 51,
+	KEY_LEFT = 52,
+	KEY_RIGHT = 53,
+	ESC = 27
+};
+
 #endif
