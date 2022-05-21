@@ -24,7 +24,7 @@
 # include <mlx.h>
 # include "./get_next_line/get_next_line.h"
 
-# define IMG_SIZE 16
+# define IMG_SIZE 32
 
 enum e_keycode
 {
