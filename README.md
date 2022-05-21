@@ -12,7 +12,7 @@ Ce projet est un jeu 2D simple conçu pour vous faire utiliser des textures, des
 $ make
 ```
 
-**2. 🧹Cleaning all binary (.o) and executable files (.a) :**
+**2. 🧹Cleaning all binary (.o) and executable files :**
 
 ```shell
 $ make fclean
