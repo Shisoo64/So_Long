@@ -25,6 +25,7 @@
 # include "./get_next_line/get_next_line.h"
 
 # define IMG_SIZE 32
+# define COLLEC_FRAMES 3
 
 enum e_keycode
 {
