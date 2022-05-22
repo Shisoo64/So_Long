@@ -8,7 +8,7 @@ typedef struct	s_sprites {
 	void	*playerdown;
 	void	*playerleft;
 	void	*playerright;
-	void	*exit;
+	void	*exit[2];
 }				t_sprites;
 
 typedef struct	s_vars {
@@ -77,6 +77,21 @@ int	frames(t_vars *vars)
 	return (0);
 }
 
+void	check_collec(t_vars *vars)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (vars->map[++y] && vars->collec == 0)
+	{
+		x = -1;
+		while (vars->map[y][++x])
+			if (vars->map[y][x] == 'E')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.exit[1], x * IMG_SIZE, y * IMG_SIZE);
+	}
+}
+
 int	move_player(int diry, int dirx, void *psprite, t_vars *vars)
 {
 	int	x;
@@ -118,6 +133,7 @@ void	cycle(int key, t_vars *vars)
 	else
 		return;
 	vars->moves++;
+	check_collec(vars);
 }
 
 int	inputs(int key, t_vars *vars)
@@ -182,7 +198,8 @@ t_sprites	get_sprites(t_vars vars)
 	char	*playerdown_path = "./sprites/playerdown.xpm";
 	char	*playerleft_path = "./sprites/playerleft.xpm";
 	char	*playerright_path = "./sprites/playerright.xpm";
-	char	*exit_path = "./sprites/exit.xpm";
+	char	*exit0_path = "./sprites/exit0.xpm";
+	char	*exit1_path = "./sprites/exit1.xpm";
 	int	img_width;
 	int	img_height;
 
@@ -196,7 +213,8 @@ t_sprites	get_sprites(t_vars vars)
 	sprites.playerdown = mlx_xpm_file_to_image(vars.mlx, playerdown_path, &img_width, &img_height);
 	sprites.playerleft = mlx_xpm_file_to_image(vars.mlx, playerleft_path, &img_width, &img_height);
 	sprites.playerright = mlx_xpm_file_to_image(vars.mlx, playerright_path, &img_width, &img_height);
-	sprites.exit = mlx_xpm_file_to_image(vars.mlx, exit_path, &img_width, &img_height);
+	sprites.exit[0] = mlx_xpm_file_to_image(vars.mlx, exit0_path, &img_width, &img_height);
+	sprites.exit[1] = mlx_xpm_file_to_image(vars.mlx, exit1_path, &img_width, &img_height);
 	return (sprites);
 }
 
@@ -218,7 +236,7 @@ void	print_map(t_vars *vars)
 			if(vars->map[y][x] == 'P')
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.playerup, IMG_SIZE * x, IMG_SIZE * y);
 			if(vars->map[y][x] == 'E')
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.exit, IMG_SIZE * x, IMG_SIZE * y);
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.exit[0], IMG_SIZE * x, IMG_SIZE * y);
 			if(vars->map[y][x] == 'C')
 			{
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.collec[0], IMG_SIZE * x, IMG_SIZE * y);
