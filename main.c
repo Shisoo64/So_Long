@@ -43,6 +43,45 @@ int	ft_strlen_n(const char *s)
 	return (--i);
 }
 
+
+void	ft_count(int n, int i[2])
+{
+	int	x;
+
+	i[0] = 1;
+	i[1] = 0;
+	if (n < 0)
+		i[1]++;
+	x = n;
+	while (x >= 10 || x <= -10)
+	{
+		x /= 10;
+		i[0]++;
+	}
+}
+
+char	*ft_itoa(int n)
+{
+	char	*tab;
+	int		i[2];
+
+	ft_count(n, i);
+	if (i[1])
+		n = -n;
+	tab = malloc(sizeof(char) * ((i[0] += i[1]) + 1));
+	if (!tab)
+		return (NULL);
+	tab[i[0]] = '\0';
+	while (i[0]--)
+	{
+		tab[i[0]] = (n % 10) + '0';
+		n /= 10;
+	}
+	if (i[1])
+		tab[0] = '-';
+	return (tab);
+}
+
 static int	exit_hook(void)
 {
 	//free all
@@ -130,20 +169,12 @@ int	move_player(int diry, int dirx, void *psprite, t_vars *vars)
 	return(0);
 }
 
-void	cycle(int key, t_vars *vars)
+void	display_moves(t_vars *vars)
 {
-	if(key == KEY_UP)
-		move_player(1, 0, vars->sprites.playerup, vars);
-	else if(key == KEY_LEFT)
-		move_player(0, -1, vars->sprites.playerleft, vars);
-	else if(key == KEY_DOWN)
-		move_player(-1, 0, vars->sprites.playerdown, vars);
-	else if(key == KEY_RIGHT)
-		move_player(0, 1, vars->sprites.playerright, vars);
-	else
-		return;
-	vars->moves++;
-	check_collec(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.wall_down, IMG_SIZE, IMG_SIZE * (vars->map_y - 2));
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->sprites.wall_down, IMG_SIZE * 2, IMG_SIZE * (vars->map_y - 2));
+	mlx_string_put(vars->mlx, vars->win, IMG_SIZE + 5, (vars->map_y - 1) * IMG_SIZE - 10, 0x44434d, "Moves:");
+	mlx_string_put(vars->mlx, vars->win, IMG_SIZE + 45, (vars->map_y - 1) * IMG_SIZE - 10, 0x44434d, ft_itoa(vars->moves++));
 }
 
 int	inputs(int key, t_vars *vars)
@@ -153,8 +184,18 @@ int	inputs(int key, t_vars *vars)
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 	}
+	else if(key == KEY_UP)
+		move_player(1, 0, vars->sprites.playerup, vars);
+	else if(key == KEY_LEFT)
+		move_player(0, -1, vars->sprites.playerleft, vars);
+	else if(key == KEY_DOWN)
+		move_player(-1, 0, vars->sprites.playerdown, vars);
+	else if(key == KEY_RIGHT)
+		move_player(0, 1, vars->sprites.playerright, vars);
 	else
-		cycle(key, vars);
+		return (0);
+	display_moves(vars);
+	check_collec(vars);
 	return (0);
 }
 
@@ -315,7 +356,7 @@ int	main(int ac, char **av)
 	vars.timer = 0;
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
-	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * vars.map_x, IMG_SIZE * vars.map_y, "Super Romil!");
+	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * vars.map_x, IMG_SIZE * (vars.map_y - 1), "Super Romil!");
 	mlx_key_hook(vars.win, inputs, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, &vars);
 	print_map(&vars);
