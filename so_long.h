@@ -33,7 +33,7 @@ enum e_keycode
 	KEY_DOWN = 119,
 	KEY_LEFT = 97,
 	KEY_RIGHT = 100,
-	ESC = 27
+	ESC = 0xFF1B
 };
 
 #endif
