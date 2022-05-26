@@ -6,11 +6,15 @@
 #    By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:20:40 by rlaforge          #+#    #+#              #
-#    Updated: 2022/04/18 17:35:01 by rlaforge         ###   ########.fr        #
+#    Updated: 2022/05/26 17:01:18 by rlaforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	main.c
+SRCS =	main.c \
+		utils.c \
+		sprites.c \
+		map.c \
+		anim.c
 
 CC = gcc
 
