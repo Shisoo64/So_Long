@@ -40,7 +40,7 @@ $(NAME): $(OBJS) $(GNL_OBJS)
 	$(CC) $(OBJS) $(GNL_OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(GNL_OBJS)
 
 fclean : clean
 	rm -rf $(NAME)
