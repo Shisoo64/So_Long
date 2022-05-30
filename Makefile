@@ -10,11 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	main.c \
-		utils.c \
-		sprites.c \
-		map.c \
-		anim.c
+SRCS =	src/main.c \
+		src/utils.c \
+		src/sprites.c \
+		src/map.c \
+		src/anim.c
 
 CC = gcc
 
@@ -24,7 +24,7 @@ OBJS = $(SRCS:.c=.o)
 
 CLIB = ar -rcs
 
-GNL_DIR = ./get_next_line/
+GNL_DIR = ./src/get_next_line/
 
 GNL = get_next_line.c \
 	get_next_line_utils.c \
