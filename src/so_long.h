@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/05/30 16:47:51 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/01 19:29:43 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define IMG_SIZE 32
 # define FPS 30
 # define COLLEC_FRAMES 3
+# define EXIT_FRAMES 2 
 
 typedef struct	s_sprites {
 	void	*f;
@@ -35,7 +36,7 @@ typedef struct	s_sprites {
 	void	*p_d;
 	void	*p_l;
 	void	*p_r;
-	void	*e[2];
+	void	*e[EXIT_FRAMES + 1];
 	void	*w;
 	void	*w_d;
 	void	*w_dl;
@@ -57,6 +58,9 @@ typedef struct	s_vars {
 	int	map_x;
 	int	collec;
 	int	moves;
+	int	c_frm;
+	int	e_frm;
+	int frame;
 	t_sprites	sprites;
 }				t_vars;
 
@@ -81,7 +85,7 @@ t_sprites	get_sprites(t_vars v);
 char	*ft_itoa(int n);
 int	ft_delay(int *timer, int delay);
 void    collec_animation(t_vars *vars);
+void    exit_animation(t_vars *vars);
 int frames(t_vars *vars);
-void    check_collec(t_vars *vars);
 
 #endif
