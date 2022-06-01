@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/01 19:41:06 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/01 19:47:47 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ void	display_moves(t_vars *v)
 
 	str = ft_itoa(v->moves++);
 	mlx_put_image_to_window(v->mlx, v->win,
-	v->sprites.w_d, IMG_SIZE, IMG_SIZE * (v->map_y - 2));
-	mlx_put_image_to_window(v->mlx, v->win,
-	v->sprites.w_d, IMG_SIZE * 2, IMG_SIZE * (v->map_y - 2));
-	mlx_string_put(v->mlx, v->win,
-	IMG_SIZE + 5, (v->map_y - 1) * IMG_SIZE - 10, 0x44434d, "Moves:");
+		v->sprites.w_d, IMG_SIZE, IMG_SIZE * (v->map_y - 2));
+	mlx_put_image_to_window(v->mlx, v->win, v->sprites.w_d,
+		IMG_SIZE * 2, IMG_SIZE * (v->map_y - 2));
+	mlx_string_put(v->mlx, v->win, IMG_SIZE + 5,
+		(v->map_y - 1) * IMG_SIZE - 10, 0x44434d, "Moves:");
 	mlx_string_put(v->mlx, v->win, IMG_SIZE + 45,
-	(v->map_y - 1) * IMG_SIZE - 10, 0x44434d, str);
+		(v->map_y - 1) * IMG_SIZE - 10, 0x44434d, str);
 	free(str);
 }
 
@@ -115,13 +115,13 @@ int	inputs(int key, t_vars *vars)
 {
 	if (key == ESC)
 		exit_game(vars);
-	else if(key == KEY_UP)
+	else if (key == KEY_UP)
 		move_player(1, 0, vars->sprites.p_u, vars);
-	else if(key == KEY_LEFT)
+	else if (key == KEY_LEFT)
 		move_player(0, -1, vars->sprites.p_l, vars);
-	else if(key == KEY_DOWN)
+	else if (key == KEY_DOWN)
 		move_player(-1, 0, vars->sprites.p_d, vars);
-	else if(key == KEY_RIGHT)
+	else if (key == KEY_RIGHT)
 		move_player(0, 1, vars->sprites.p_r, vars);
 	else
 		return (0);
@@ -144,7 +144,7 @@ int	main(int ac, char **av)
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * vars.map_x,
-	IMG_SIZE * (vars.map_y - 1), "Super Romil!");
+			IMG_SIZE * (vars.map_y - 1), "Super Romil!");
 	print_map(&vars);
 	mlx_key_hook(vars.win, inputs, &vars);
 	mlx_loop_hook(vars.mlx, frames, &vars);

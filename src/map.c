@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:16:43 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/05/30 15:45:30 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:08:53 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void	print_map(t_vars *v)
 			if (v->map[y][x] == '1')
 				print_wall(v, x, y);
 			if (v->map[y][x] == '0')
-				mlx_put_image_to_window(v->mlx, v->win, v->sprites.f, IMG_SIZE * x, IMG_SIZE * y);
+				ft_put_win(v, x, y, v->sprites.f);
 			if (v->map[y][x] == 'P')
-				mlx_put_image_to_window(v->mlx, v->win, v->sprites.p_u, IMG_SIZE * x, IMG_SIZE * y);
+				ft_put_win(v, x, y, v->sprites.p_u);
 			if (v->map[y][x] == 'E')
-				mlx_put_image_to_window(v->mlx, v->win, v->sprites.e[0], IMG_SIZE * x, IMG_SIZE * y);
+				ft_put_win(v, x, y, v->sprites.e[0]);
 			if (v->map[y][x] == 'C')
 			{
-				mlx_put_image_to_window(v->mlx, v->win, v->sprites.c[0], IMG_SIZE * x, IMG_SIZE * y);
+				ft_put_win(v, x, y, v->sprites.c[0]);
 				v->collec++;
 			}
 		}

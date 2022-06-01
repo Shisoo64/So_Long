@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/01 19:29:43 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/01 19:57:09 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define COLLEC_FRAMES 3
 # define EXIT_FRAMES 2 
 
-typedef struct	s_sprites {
+typedef struct s_sprites {
 	void	*f;
 	void	*c[COLLEC_FRAMES + 1];
 	void	*p_u;
@@ -49,18 +49,18 @@ typedef struct	s_sprites {
 
 }				t_sprites;
 
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-	char	**map;
-	char	*mapname;
-	int	map_y;
-	int	map_x;
-	int	collec;
-	int	moves;
-	int	c_frm;
-	int	e_frm;
-	int frame;
+typedef struct s_vars {
+	void		*mlx;
+	void		*win;
+	char		**map;
+	char		*mapname;
+	int			map_y;
+	int			map_x;
+	int			collec;
+	int			moves;
+	int			c_frm;
+	int			e_frm;
+	int			frame;
 	t_sprites	sprites;
 }				t_vars;
 
@@ -87,5 +87,6 @@ int	ft_delay(int *timer, int delay);
 void    collec_animation(t_vars *vars);
 void    exit_animation(t_vars *vars);
 int frames(t_vars *vars);
+void ft_put_win(t_vars *v, int x, int y, void *sprite);
 
 #endif

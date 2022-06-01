@@ -6,11 +6,16 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:31 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/05/26 16:14:03 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:07:07 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_put_win(t_vars *v, int x, int y, void *sprite)
+{
+	mlx_put_image_to_window(v->mlx, v->win, sprite, IMG_SIZE * x, IMG_SIZE * y);
+}
 
 int	ft_strlen_n(const char *s)
 {
