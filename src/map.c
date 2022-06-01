@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:16:43 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/05/26 20:13:03 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:45:30 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	get_map_height(t_vars *vars)
 	i = 1;
 	fd = open(vars->mapname, 0);
 	line = get_next_line(fd);
+	vars->map_x = ft_strlen_n(line) + 1;
 	while (line)
 	{
 		i++;
@@ -43,7 +44,6 @@ char	**create_map(t_vars *vars)
 	fd = open(vars->mapname, 0);
 	map = malloc(sizeof(char *) * vars->map_y);
 	map[0] = get_next_line(fd);
-	vars->map_x = ft_strlen_n(map[0]) + 1;
 	while (++i < vars->map_y)
 		map[i] = get_next_line(fd);
 	close(fd);

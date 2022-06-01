@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/05/26 20:54:28 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:03:44 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ int	main(int ac, char **av)
 	vars.mlx = mlx_init();
 	vars.collec = 0;
 	vars.moves = 0;
-	vars.timer = 0;
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * vars.map_x,

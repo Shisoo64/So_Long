@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/05/26 21:02:51 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:47:51 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "./get_next_line/get_next_line.h"
 
 # define IMG_SIZE 32
+# define FPS 30
 # define COLLEC_FRAMES 3
 
 typedef struct	s_sprites {
@@ -56,7 +57,6 @@ typedef struct	s_vars {
 	int	map_x;
 	int	collec;
 	int	moves;
-	int	timer;
 	t_sprites	sprites;
 }				t_vars;
 

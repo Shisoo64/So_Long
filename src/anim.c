@@ -6,22 +6,11 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:56:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/05/26 21:00:12 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:59:23 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	ft_delay(int *timer, int delay)
-{
-	if (*timer <= delay)
-	{
-		*timer += 1;
-		return (1);
-	}
-	*timer = 0;
-	return (0);
-}
 
 void	collec_animation(t_vars *vars)
 {
@@ -29,8 +18,6 @@ void	collec_animation(t_vars *vars)
 	int			x;
 	static int	i;
 
-	if (ft_delay(&vars->timer, 2500) == 1)
-		return ;
 	if (i >= COLLEC_FRAMES)
 		i = 0;
 	y = -1;
@@ -47,7 +34,15 @@ void	collec_animation(t_vars *vars)
 
 int	frames(t_vars *vars)
 {
-	collec_animation(vars);
+	static int	i;
+
+	i++;
+	if (i / 4)
+	{
+		i = 0;
+		collec_animation(vars);
+	}
+	usleep(1000000 / FPS);
 	return (0);
 }
 
