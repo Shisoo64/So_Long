@@ -46,6 +46,8 @@ t_sprites	get_sprites(t_vars v)
 	s.e[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/exit0.xpm", &ix, &iy);
 	s.e[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/exit1.xpm", &ix, &iy);
 	s.e[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/exit2.xpm", &ix, &iy);
+	s.x_l = mlx_xpm_file_to_image(v.mlx, "./sprt/enemyleft.xpm", &ix, &iy);
+	s.x_r = mlx_xpm_file_to_image(v.mlx, "./sprt/enemyright.xpm", &ix, &iy);
 	get_sprites_extend(&s, v);
 	return (s);
 }

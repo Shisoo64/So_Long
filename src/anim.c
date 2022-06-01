@@ -42,6 +42,7 @@ int	frames(t_vars *vars)
 		i = 0;
 		collec_animation(vars);
 		exit_animation(vars);
+		enemies(vars);
 	}
 	usleep(1000000 / FPS);
 	return (0);

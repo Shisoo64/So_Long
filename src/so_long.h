@@ -46,6 +46,8 @@ typedef struct s_sprites {
 	void	*w_ul;
 	void	*w_ur;
 	void	*w_u;
+	void	*x_l;
+	void	*x_r;
 
 }				t_sprites;
 
@@ -57,6 +59,7 @@ typedef struct s_vars {
 	int			map_y;
 	int			map_x;
 	int			collec;
+	int			enemy_nbr;
 	int			moves;
 	int			c_frm;
 	int			e_frm;
@@ -88,5 +91,7 @@ void    collec_animation(t_vars *vars);
 void    exit_animation(t_vars *vars);
 int frames(t_vars *vars);
 void ft_put_win(t_vars *v, int x, int y, void *sprite);
+void    enemies(t_vars *vars);
+void    move_enemy(t_vars *v, int dy, int dx, void *sprite, int nbr);
 
 #endif

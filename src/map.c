@@ -69,6 +69,11 @@ void	print_map(t_vars *v)
 				ft_put_win(v, x, y, v->sprites.p_u);
 			if (v->map[y][x] == 'E')
 				ft_put_win(v, x, y, v->sprites.e[0]);
+			if (v->map[y][x] == 'X')
+			{
+				ft_put_win(v, x, y, v->sprites.x_l);
+				v->enemy_nbr++;
+			}
 			if (v->map[y][x] == 'C')
 			{
 				ft_put_win(v, x, y, v->sprites.c[0]);
