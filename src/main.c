@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/01 19:47:47 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/03 20:42:26 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	enemies(t_vars *vars)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_enemy(vars, -1, 0, vars->sprites.x_l, i);
+		move_enemy(vars, -1, 0, vars->sprites.x_l[xsprite_i()], i);
 	if (dir == 1)
-		move_enemy(vars, 1, 0, vars->sprites.x_r, i);
+		move_enemy(vars, 1, 0, vars->sprites.x_r[xsprite_i()], i);
 	if (dir == 2)
-		move_enemy(vars, 0, -1, vars->sprites.x_l, i);
+		move_enemy(vars, 0, -1, vars->sprites.x_l[xsprite_i()], i);
 	if (dir == 3)
-		move_enemy(vars, 0, 1, vars->sprites.x_r, i);
+		move_enemy(vars, 0, 1, vars->sprites.x_r[xsprite_i()], i);
 }
 
 void	move_enemy(t_vars *v, int dy, int dx, void *sprite, int nbr)
@@ -71,10 +71,10 @@ void	free_img(t_vars *v)
 	mlx_destroy_image(v->mlx, v->sprites.c[1]);
 	mlx_destroy_image(v->mlx, v->sprites.c[2]);
 	mlx_destroy_image(v->mlx, v->sprites.c[3]);
-	mlx_destroy_image(v->mlx, v->sprites.p_u);
-	mlx_destroy_image(v->mlx, v->sprites.p_d);
-	mlx_destroy_image(v->mlx, v->sprites.p_l);
-	mlx_destroy_image(v->mlx, v->sprites.p_r);
+	mlx_destroy_image(v->mlx, v->sprites.p_l[0]);
+	mlx_destroy_image(v->mlx, v->sprites.p_l[1]);
+	mlx_destroy_image(v->mlx, v->sprites.p_r[0]);
+	mlx_destroy_image(v->mlx, v->sprites.p_r[1]);
 	mlx_destroy_image(v->mlx, v->sprites.e[0]);
 	mlx_destroy_image(v->mlx, v->sprites.e[1]);
 	mlx_destroy_image(v->mlx, v->sprites.e[2]);
@@ -105,11 +105,31 @@ static int	exit_hook(t_vars *vars)
 	return (0);
 }
 
-int	move_player(int dy, int dx, void *psprite, t_vars *v)
+int	xsprite_i()
+{
+	static int	i;
+
+	if (i > ENEMY_FRAMES)
+		i = 0;
+	return (i++);
+}
+
+int	psprite_i()
+{
+	static int	i;
+
+	if (i > PLAYER_FRAMES)
+		i = 0;
+	return (i++);
+}
+
+int	move_player(int dy, int dx, void **psprite, t_vars *v)
 {
 	int	x;
 	int	y;
 
+	if (dx != 0)
+		v->p_dir = dx;
 	y = -1;
 	while (v->map[++y])
 	{
@@ -122,11 +142,9 @@ int	move_player(int dy, int dx, void *psprite, t_vars *v)
 				if (v->map[y + dy][x + dx] == 'C')
 					v->collec--;
 				v->map[y][x] = '0';
-				mlx_put_image_to_window(v->mlx, v->win, v->sprites.f,
-					IMG_SIZE * x, IMG_SIZE * y);
+				ft_put_win(v, x, y, v->sprites.f);
 				v->map[y + dy][x + dx] = 'P';
-				mlx_put_image_to_window(v->mlx, v->win, psprite,
-					IMG_SIZE * (x + dx), IMG_SIZE * (y + dy));
+				ft_put_win(v, x + dx, y + dy, psprite[psprite_i()]);
 				return (1);
 			}
 			if (v->map[y][x] == 'P' && \
@@ -158,11 +176,11 @@ int	inputs(int key, t_vars *vars)
 	if (key == ESC)
 		exit_game(vars);
 	else if (key == KEY_UP)
-		move_player(1, 0, vars->sprites.p_u, vars);
+		move_player(1, 0, vars->sprites.p_l, vars);
 	else if (key == KEY_LEFT)
 		move_player(0, -1, vars->sprites.p_l, vars);
 	else if (key == KEY_DOWN)
-		move_player(-1, 0, vars->sprites.p_d, vars);
+		move_player(-1, 0, vars->sprites.p_r, vars);
 	else if (key == KEY_RIGHT)
 		move_player(0, 1, vars->sprites.p_r, vars);
 	else
@@ -179,6 +197,7 @@ int	main(int ac, char **av)
 		return (1);
 	vars.mapname = av[1];
 	vars.mlx = mlx_init();
+	vars.p_dir = 1;
 	vars.collec = 0;
 	vars.enemy_nbr = 0;
 	vars.moves = 0;

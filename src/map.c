@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:16:43 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/01 20:08:53 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/03 20:40:27 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void	print_map(t_vars *v)
 			if (v->map[y][x] == '0')
 				ft_put_win(v, x, y, v->sprites.f);
 			if (v->map[y][x] == 'P')
-				ft_put_win(v, x, y, v->sprites.p_u);
+				ft_put_win(v, x, y, v->sprites.p_r[0]);
 			if (v->map[y][x] == 'E')
 				ft_put_win(v, x, y, v->sprites.e[0]);
 			if (v->map[y][x] == 'X')
 			{
-				ft_put_win(v, x, y, v->sprites.x_l);
+				ft_put_win(v, x, y, v->sprites.x_l[0]);
 				v->enemy_nbr++;
 			}
 			if (v->map[y][x] == 'C')

@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/01 19:57:09 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/03 20:51:02 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@
 
 # define IMG_SIZE 32
 # define FPS 30
+# define PLAYER_FRAMES 1
+# define ENEMY_FRAMES 3
 # define COLLEC_FRAMES 3
 # define EXIT_FRAMES 2 
 
 typedef struct s_sprites {
 	void	*f;
 	void	*c[COLLEC_FRAMES + 1];
-	void	*p_u;
-	void	*p_d;
-	void	*p_l;
-	void	*p_r;
+	void	*p_l[PLAYER_FRAMES + 1];
+	void	*p_r[PLAYER_FRAMES + 1];
 	void	*e[EXIT_FRAMES + 1];
 	void	*w;
 	void	*w_d;
@@ -46,8 +46,8 @@ typedef struct s_sprites {
 	void	*w_ul;
 	void	*w_ur;
 	void	*w_u;
-	void	*x_l;
-	void	*x_r;
+	void	*x_l[ENEMY_FRAMES + 1];
+	void	*x_r[ENEMY_FRAMES + 1];
 
 }				t_sprites;
 
@@ -61,6 +61,7 @@ typedef struct s_vars {
 	int			collec;
 	int			enemy_nbr;
 	int			moves;
+	int			p_dir;
 	int			c_frm;
 	int			e_frm;
 	int			frame;
@@ -87,6 +88,9 @@ int	get_map_height(t_vars *vars);
 t_sprites	get_sprites(t_vars v);
 char	*ft_itoa(int n);
 int	ft_delay(int *timer, int delay);
+int psprite_i();
+int xsprite_i();
+void    player_animation(t_vars *vars);
 void    collec_animation(t_vars *vars);
 void    exit_animation(t_vars *vars);
 int frames(t_vars *vars);

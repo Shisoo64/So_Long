@@ -6,11 +6,30 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:56:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/01 19:33:27 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/03 19:54:32 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	player_animation(t_vars *vars)
+{
+	int			y;
+	int			x;
+
+	y = -1;
+	while (vars->map[++y])
+	{
+		x = -1;
+		while (vars->map[y][++x])
+		{
+			if (vars->map[y][x] == 'P' && vars->p_dir == -1)
+				ft_put_win(vars, x, y, vars->sprites.p_l[psprite_i()]);
+			else if (vars->map[y][x] == 'P' && vars->p_dir == 1)
+				ft_put_win(vars, x, y, vars->sprites.p_r[psprite_i()]);
+		}
+	}
+}
 
 void	collec_animation(t_vars *vars)
 {
@@ -42,6 +61,7 @@ int	frames(t_vars *vars)
 		i = 0;
 		collec_animation(vars);
 		exit_animation(vars);
+		player_animation(vars);
 		enemies(vars);
 	}
 	usleep(1000000 / FPS);
