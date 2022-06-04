@@ -105,25 +105,7 @@ static int	exit_hook(t_vars *vars)
 	return (0);
 }
 
-int	xsprite_i()
-{
-	static int	i;
-
-	if (i > ENEMY_FRAMES)
-		i = 0;
-	return (i++);
-}
-
-int	psprite_i()
-{
-	static int	i;
-
-	if (i > PLAYER_FRAMES)
-		i = 0;
-	return (i++);
-}
-
-int	move_player(int dy, int dx, void **psprite, t_vars *v)
+int	move_player(int dy, int dx, t_vars *v)
 {
 	int	x;
 	int	y;
@@ -144,7 +126,6 @@ int	move_player(int dy, int dx, void **psprite, t_vars *v)
 				v->map[y][x] = '0';
 				ft_put_win(v, x, y, v->sprites.f);
 				v->map[y + dy][x + dx] = 'P';
-				ft_put_win(v, x + dx, y + dy, psprite[psprite_i()]);
 				return (1);
 			}
 			if (v->map[y][x] == 'P' && \
@@ -160,15 +141,29 @@ void	display_moves(t_vars *v)
 	char	*str;
 
 	str = ft_itoa(v->moves++);
-	mlx_put_image_to_window(v->mlx, v->win,
-		v->sprites.w_d, IMG_SIZE, IMG_SIZE * (v->map_y - 2));
-	mlx_put_image_to_window(v->mlx, v->win, v->sprites.w_d,
-		IMG_SIZE * 2, IMG_SIZE * (v->map_y - 2));
+	ft_put_win(v, 1, v->map_y - 2, v->sprites.w_d);
+	ft_put_win(v, 2, v->map_y - 2, v->sprites.w_d);
 	mlx_string_put(v->mlx, v->win, IMG_SIZE + 5,
-		(v->map_y - 1) * IMG_SIZE - 10, 0x44434d, "Moves:");
+		(v->map_y - 1) * IMG_SIZE - 10, 0xffffff, "Moves:");
 	mlx_string_put(v->mlx, v->win, IMG_SIZE + 45,
-		(v->map_y - 1) * IMG_SIZE - 10, 0x44434d, str);
+		(v->map_y - 1) * IMG_SIZE - 10, 0xffffff, str);
 	free(str);
+}
+
+int	frames(t_vars *vars)
+{
+	static int	i;
+
+	if (i++ / 4)
+	{
+		i = 0;
+		collec_animation(vars);
+		exit_animation(vars);
+		enemies(vars);
+	}
+	player_animation(vars);
+	usleep(1000000 / FPS);
+	return (0);
 }
 
 int	inputs(int key, t_vars *vars)
@@ -176,13 +171,13 @@ int	inputs(int key, t_vars *vars)
 	if (key == ESC)
 		exit_game(vars);
 	else if (key == KEY_UP)
-		move_player(1, 0, vars->sprites.p_l, vars);
+		move_player(1, 0, vars);
 	else if (key == KEY_LEFT)
-		move_player(0, -1, vars->sprites.p_l, vars);
+		move_player(0, -1, vars);
 	else if (key == KEY_DOWN)
-		move_player(-1, 0, vars->sprites.p_r, vars);
+		move_player(-1, 0, vars);
 	else if (key == KEY_RIGHT)
-		move_player(0, 1, vars->sprites.p_r, vars);
+		move_player(0, 1, vars);
 	else
 		return (0);
 	display_moves(vars);
@@ -201,12 +196,10 @@ int	main(int ac, char **av)
 	vars.collec = 0;
 	vars.enemy_nbr = 0;
 	vars.moves = 0;
-	vars.e_frm = 0;
-	vars.c_frm = 0;
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * vars.map_x,
-			IMG_SIZE * (vars.map_y - 1), "Super Romil!");
+			IMG_SIZE * (vars.map_y - 1), "So_long Romil!");
 	print_map(&vars);
 	mlx_key_hook(vars.win, inputs, &vars);
 	mlx_loop_hook(vars.mlx, frames, &vars);

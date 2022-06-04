@@ -12,10 +12,28 @@
 
 #include "so_long.h"
 
+int	xsprite_i()
+{
+	static int	i;
+
+	if (i > ENEMY_FRAMES)
+		i = 0;
+	return (i++);
+}
+
+int	psprite_i()
+{
+	static int	i;
+
+	if (i > PLAYER_FRAMES * 2)
+		i = 0;
+	return (i++ / 2);
+}
+
 void	player_animation(t_vars *vars)
 {
-	int			y;
-	int			x;
+	int	y;
+	int	x;
 
 	y = -1;
 	while (vars->map[++y])
@@ -33,8 +51,8 @@ void	player_animation(t_vars *vars)
 
 void	collec_animation(t_vars *vars)
 {
-	int			y;
-	int			x;
+	int		y;
+	int		x;
 	static int	i;
 
 	if (i > COLLEC_FRAMES)
@@ -51,27 +69,10 @@ void	collec_animation(t_vars *vars)
 	i++;
 }
 
-int	frames(t_vars *vars)
-{
-	static int	i;
-
-	i++;
-	if (i / 4)
-	{
-		i = 0;
-		collec_animation(vars);
-		exit_animation(vars);
-		player_animation(vars);
-		enemies(vars);
-	}
-	usleep(1000000 / FPS);
-	return (0);
-}
-
 void	exit_animation(t_vars *vars)
 {
-	int			x;
-	int			y;
+	int		x;
+	int		y;
 	static int	i;
 
 	if (vars->collec != 0 || i > EXIT_FRAMES)

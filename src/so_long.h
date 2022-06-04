@@ -32,39 +32,36 @@
 # define EXIT_FRAMES 2 
 
 typedef struct s_sprites {
-	void	*f;
-	void	*c[COLLEC_FRAMES + 1];
 	void	*p_l[PLAYER_FRAMES + 1];
 	void	*p_r[PLAYER_FRAMES + 1];
+	void	*x_l[ENEMY_FRAMES + 1];
+	void	*x_r[ENEMY_FRAMES + 1];
+	void	*c[COLLEC_FRAMES + 1];
 	void	*e[EXIT_FRAMES + 1];
+	void	*f;
 	void	*w;
 	void	*w_d;
 	void	*w_dl;
 	void	*w_dr;
-	void	*w_l;
-	void	*w_r;
+	void	*w_u;
 	void	*w_ul;
 	void	*w_ur;
-	void	*w_u;
-	void	*x_l[ENEMY_FRAMES + 1];
-	void	*x_r[ENEMY_FRAMES + 1];
+	void	*w_l;
+	void	*w_r;
 
 }				t_sprites;
 
 typedef struct s_vars {
-	void		*mlx;
-	void		*win;
-	char		**map;
-	char		*mapname;
-	int			map_y;
-	int			map_x;
-	int			collec;
-	int			enemy_nbr;
-	int			moves;
-	int			p_dir;
-	int			c_frm;
-	int			e_frm;
-	int			frame;
+	void	*mlx;
+	void	*win;
+	char	**map;
+	char	*mapname;
+	int	map_y;
+	int	map_x;
+	int	collec;
+	int	enemy_nbr;
+	int	moves;
+	int	p_dir;
 	t_sprites	sprites;
 }				t_vars;
 
