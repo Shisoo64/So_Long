@@ -26,7 +26,7 @@
 
 # define IMG_SIZE 32
 # define FPS 30
-# define PLAYER_FRAMES 1
+# define PLAYER_FRAMES 2
 # define ENEMY_FRAMES 3
 # define COLLEC_FRAMES 3
 # define EXIT_FRAMES 2 
