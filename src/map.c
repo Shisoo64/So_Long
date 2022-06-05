@@ -12,16 +12,43 @@
 
 #include "so_long.h"
 
+int	check_map(char **map, t_vars *v)
+{
+	int	x;
+	int	y;
+
+
+	y = 0;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+		//	if (map[y][x] != '1' && map[y][x] != '0' && map[y][x] != 'P' &&	map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != 'X')
+		//		return (0);
+			if (y == 0 && map[y][x] != '1')
+				return (0);
+			else if (y == v->map_y && map[y][x] != '1')
+				return (0);
+			else if (x == 0 && map[y][x] != '1')
+				return (0);
+			else if (x == v->map_x && map[y][x] != '1')
+				return (0);
+		}
+	}
+	return (1);
+}
+
 int	get_map_height(t_vars *vars)
 {
 	int		fd;
 	int		i;
 	char	*line;
 
-	i = 1;
+	i = 0;
 	fd = open(vars->mapname, 0);
 	line = get_next_line(fd);
-	vars->map_x = ft_strlen_n(line) + 1;
+	vars->map_x = ft_strlen_n(line);
 	while (line)
 	{
 		i++;
@@ -42,11 +69,14 @@ char	**create_map(t_vars *vars)
 	i = 0;
 	vars->map_y = get_map_height(vars);
 	fd = open(vars->mapname, 0);
-	map = malloc(sizeof(char *) * vars->map_y);
+	map = malloc(sizeof(char *) * (vars->map_y + 1));
 	map[0] = get_next_line(fd);
 	while (++i < vars->map_y)
 		map[i] = get_next_line(fd);
 	close(fd);
+	if (check_map(map, vars))
+		return (map);
+	exit(0);
 	return (map);
 }
 

@@ -141,12 +141,12 @@ void	display_moves(t_vars *v)
 	char	*str;
 
 	str = ft_itoa(v->moves++);
-	ft_put_win(v, 1, v->map_y - 2, v->sprites.w_d);
-	ft_put_win(v, 2, v->map_y - 2, v->sprites.w_d);
+	ft_put_win(v, 1, v->map_y - 1, v->sprites.w_d);
+	ft_put_win(v, 2, v->map_y - 1, v->sprites.w_d);
 	mlx_string_put(v->mlx, v->win, IMG_SIZE + 5,
-		(v->map_y - 1) * IMG_SIZE - 10, 0xffffff, "Moves:");
+		(v->map_y) * IMG_SIZE - 10, 0xffffff, "Moves:");
 	mlx_string_put(v->mlx, v->win, IMG_SIZE + 45,
-		(v->map_y - 1) * IMG_SIZE - 10, 0xffffff, str);
+		(v->map_y) * IMG_SIZE - 10, 0xffffff, str);
 	free(str);
 }
 
@@ -198,8 +198,8 @@ int	main(int ac, char **av)
 	vars.moves = 0;
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
-	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * vars.map_x,
-			IMG_SIZE * (vars.map_y - 1), "So_long Romil!");
+	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),
+			IMG_SIZE * (vars.map_y), "So_long Romil!");
 	print_map(&vars);
 	mlx_key_hook(vars.win, inputs, &vars);
 	mlx_loop_hook(vars.mlx, frames, &vars);

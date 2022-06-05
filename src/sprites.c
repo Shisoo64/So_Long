@@ -66,23 +66,23 @@ void	print_wall(t_vars *v, int x, int y)
 	{
 		if (x == 0)
 			ft_put_win(v, x, y, v->sprites.w_ul);
-		else if (x == v->map_x - 1)
+		else if (x == v->map_x)
 			ft_put_win(v, x, y, v->sprites.w_ur);
 		else
 			ft_put_win(v, x, y, v->sprites.w_u);
 	}
-	else if (y == v->map_y - 2)
+	else if (y == v->map_y - 1)
 	{
 		if (x == 0)
 			ft_put_win(v, x, y, v->sprites.w_dl);
-		else if (x == v->map_x - 1)
+		else if (x == v->map_x)
 			ft_put_win(v, x, y, v->sprites.w_dr);
 		else
 			ft_put_win(v, x, y, v->sprites.w_d);
 	}
 	else if (x == 0)
 		ft_put_win(v, x, y, v->sprites.w_l);
-	else if (x == v->map_x - 1)
+	else if (x == v->map_x)
 		ft_put_win(v, x, y, v->sprites.w_r);
 	else
 		ft_put_win(v, x, y, v->sprites.w);
