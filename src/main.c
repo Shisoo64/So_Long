@@ -196,8 +196,8 @@ int	main(int ac, char **av)
 	vars.collec = 0;
 	vars.enemy_nbr = 0;
 	vars.moves = 0;
-	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
+	vars.sprites = get_sprites(vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),
 			IMG_SIZE * (vars.map_y), "So_long Romil!");
 	print_map(&vars);

@@ -12,6 +12,14 @@
 
 #include "so_long.h"
 
+void	error_map(t_vars *vars)
+{
+	//ft_printf(map error);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
+	exit(0);
+}
+
 int	check_map(char **map, t_vars *v)
 {
 	int	x;
@@ -22,10 +30,10 @@ int	check_map(char **map, t_vars *v)
 	while (map[++y])
 	{
 		x = -1;
-		while (map[y][++x])
+		while (++x <= v->map_x)
 		{
-		//	if (map[y][x] != '1' && map[y][x] != '0' && map[y][x] != 'P' &&	map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != 'X')
-		//		return (0);
+			if (map[y][x] != '1' && map[y][x] != '0' && map[y][x] != 'P' &&	map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != 'X')
+				return (0);
 			if (y == 0 && map[y][x] != '1')
 				return (0);
 			else if (y == v->map_y && map[y][x] != '1')
@@ -76,7 +84,7 @@ char	**create_map(t_vars *vars)
 	close(fd);
 	if (check_map(map, vars))
 		return (map);
-	exit(0);
+	error_map(vars);
 	return (map);
 }
 
