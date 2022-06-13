@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/03 20:51:02 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:37:15 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define IMG_SIZE 32
 # define FPS 30
-# define PLAYER_FRAMES 2
+# define PLAYER_FRAMES 3
 # define ENEMY_FRAMES 3
 # define COLLEC_FRAMES 3
 # define EXIT_FRAMES 2 
@@ -36,6 +36,8 @@ typedef struct s_sprites {
 	void	*p_r[PLAYER_FRAMES + 1];
 	void	*x_l[ENEMY_FRAMES + 1];
 	void	*x_r[ENEMY_FRAMES + 1];
+	void	*m_l[ENEMY_FRAMES + 1];
+	void	*m_r[ENEMY_FRAMES + 1];
 	void	*c[COLLEC_FRAMES + 1];
 	void	*e[EXIT_FRAMES + 1];
 	void	*f;
@@ -59,7 +61,8 @@ typedef struct s_vars {
 	int	map_y;
 	int	map_x;
 	int	collec;
-	int	enemy_nbr;
+	int	mouses_nbr;
+	int	monsters_nbr;
 	int	moves;
 	int	p_dir;
 	t_sprites	sprites;
@@ -87,12 +90,14 @@ char	*ft_itoa(int n);
 int	ft_delay(int *timer, int delay);
 int psprite_i();
 int xsprite_i();
+int msprite_i();
 void    player_animation(t_vars *vars);
 void    collec_animation(t_vars *vars);
 void    exit_animation(t_vars *vars);
 int frames(t_vars *vars);
 void ft_put_win(t_vars *v, int x, int y, void *sprite);
-void    enemies(t_vars *vars);
-void    move_enemy(t_vars *v, int dy, int dx, void *sprite, int nbr);
+void    monsters(t_vars *vars);
+void    mouses(t_vars *vars);
+void    move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c);
 
 #endif

@@ -6,31 +6,49 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/03 20:42:26 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/13 20:02:42 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	enemies(t_vars *vars)
+void	monsters(t_vars *vars)
 {
 	static int	i;
 	int		dir;
 
-	if (i++ > vars->enemy_nbr)
+	if (i++ > vars->monsters_nbr)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_enemy(vars, -1, 0, vars->sprites.x_l[xsprite_i()], i);
+		move_enemy(vars, (int[]){-1, 0}, vars->sprites.x_l[xsprite_i()], i, 'X');
 	if (dir == 1)
-		move_enemy(vars, 1, 0, vars->sprites.x_r[xsprite_i()], i);
+		move_enemy(vars, (int[]){1, 0}, vars->sprites.x_r[xsprite_i()], i, 'X');
 	if (dir == 2)
-		move_enemy(vars, 0, -1, vars->sprites.x_l[xsprite_i()], i);
+		move_enemy(vars, (int[]){0, -1}, vars->sprites.x_l[xsprite_i()], i, 'X');
 	if (dir == 3)
-		move_enemy(vars, 0, 1, vars->sprites.x_r[xsprite_i()], i);
+		move_enemy(vars, (int[]){0, 1}, vars->sprites.x_r[xsprite_i()], i, 'X');
 }
 
-void	move_enemy(t_vars *v, int dy, int dx, void *sprite, int nbr)
+void	mouses(t_vars *vars)
+{
+	static int	i;
+	int		dir;
+
+	if (i++ > vars->mouses_nbr)
+		i = 0;
+	dir = rand() % 4;
+	if (dir == 0)
+		move_enemy(vars, (int[]){-1, 0}, vars->sprites.m_l[msprite_i()], i, 'M');
+	if (dir == 1)
+		move_enemy(vars, (int[]){1, 0}, vars->sprites.m_r[msprite_i()], i, 'M');
+	if (dir == 2)
+		move_enemy(vars, (int[]){0, -1}, vars->sprites.m_l[msprite_i()], i, 'M');
+	if (dir == 3)
+		move_enemy(vars, (int[]){0, 1}, vars->sprites.m_r[msprite_i()], i, 'M');
+}
+
+void	move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c)
 {
 	int	x;
 	int	y;
@@ -42,15 +60,19 @@ void	move_enemy(t_vars *v, int dy, int dx, void *sprite, int nbr)
 	{
 		x = -1;
 		while (v->map[y][++x])
-			if (v->map[y][x] == 'X')
-				if (i++ == nbr && v->map[y + dy][x + dx] == '0')
+			if (v->map[y][x] == c)
+			{
+				if (i == nbr && c == 'X' && v->map[y + d[0]][x + d[1]] == 'P')
+					exit_game(v);
+				if (i++ == nbr && v->map[y + d[0]][x + d[1]] == '0')
 				{	
 					v->map[y][x] = '0';
 					ft_put_win(v, x, y, v->sprites.f);
-					v->map[y + dy][x + dx] = 'X';
-					ft_put_win(v, x + dx, y + dy, sprite);
+					v->map[y + d[0]][x + d[1]] = c;
+					ft_put_win(v, x + d[1], y + d[0], sprite);
 					return ;
 				}
+			}
 	}
 }
 
@@ -73,8 +95,12 @@ void	free_img(t_vars *v)
 	mlx_destroy_image(v->mlx, v->sprites.c[3]);
 	mlx_destroy_image(v->mlx, v->sprites.p_l[0]);
 	mlx_destroy_image(v->mlx, v->sprites.p_l[1]);
+	mlx_destroy_image(v->mlx, v->sprites.p_l[2]);
+	mlx_destroy_image(v->mlx, v->sprites.p_l[3]);
 	mlx_destroy_image(v->mlx, v->sprites.p_r[0]);
 	mlx_destroy_image(v->mlx, v->sprites.p_r[1]);
+	mlx_destroy_image(v->mlx, v->sprites.p_r[2]);
+	mlx_destroy_image(v->mlx, v->sprites.p_r[3]);
 	mlx_destroy_image(v->mlx, v->sprites.e[0]);
 	mlx_destroy_image(v->mlx, v->sprites.e[1]);
 	mlx_destroy_image(v->mlx, v->sprites.e[2]);
@@ -159,8 +185,10 @@ int	frames(t_vars *vars)
 		i = 0;
 		collec_animation(vars);
 		exit_animation(vars);
-		enemies(vars);
 	}
+	if (i / 2)
+		mouses(vars);
+	monsters(vars);
 	player_animation(vars);
 	usleep(1000000 / FPS);
 	return (0);
@@ -194,10 +222,11 @@ int	main(int ac, char **av)
 	vars.mlx = mlx_init();
 	vars.p_dir = 1;
 	vars.collec = 0;
-	vars.enemy_nbr = 0;
+	vars.mouses_nbr = 0;
+	vars.monsters_nbr = 0;
 	vars.moves = 0;
-	vars.map = create_map(&vars);
 	vars.sprites = get_sprites(vars);
+	vars.map = create_map(&vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),
 			IMG_SIZE * (vars.map_y), "So_long Romil!");
 	print_map(&vars);

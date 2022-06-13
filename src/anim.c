@@ -6,11 +6,20 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:56:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/03 19:54:32 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:48:46 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	msprite_i()
+{
+	static int	i;
+
+	if (i > ENEMY_FRAMES)
+		i = 0;
+	return (i++);
+}
 
 int	xsprite_i()
 {
@@ -25,9 +34,9 @@ int	psprite_i()
 {
 	static int	i;
 
-	if (i > PLAYER_FRAMES * 2)
+	if (i > PLAYER_FRAMES * 8)
 		i = 0;
-	return (i++ / 2);
+	return (i++ / 8);
 }
 
 void	player_animation(t_vars *vars)

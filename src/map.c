@@ -6,19 +6,11 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:16:43 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/03 20:40:27 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:34:38 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	error_map(t_vars *vars)
-{
-	//ft_printf(map error);
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
-	exit(0);
-}
 
 int	check_map(char **map, t_vars *v)
 {
@@ -30,10 +22,10 @@ int	check_map(char **map, t_vars *v)
 	while (map[++y])
 	{
 		x = -1;
-		while (++x <= v->map_x)
+		while (map[y][++x])
 		{
-			if (map[y][x] != '1' && map[y][x] != '0' && map[y][x] != 'P' &&	map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != 'X')
-				return (0);
+		//	if (map[y][x] != '1' && map[y][x] != '0' && map[y][x] != 'P' &&	map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != 'X')
+		//		return (0);
 			if (y == 0 && map[y][x] != '1')
 				return (0);
 			else if (y == v->map_y && map[y][x] != '1')
@@ -84,7 +76,7 @@ char	**create_map(t_vars *vars)
 	close(fd);
 	if (check_map(map, vars))
 		return (map);
-	error_map(vars);
+	exit(0);
 	return (map);
 }
 
@@ -110,7 +102,12 @@ void	print_map(t_vars *v)
 			if (v->map[y][x] == 'X')
 			{
 				ft_put_win(v, x, y, v->sprites.x_l[0]);
-				v->enemy_nbr++;
+				v->monsters_nbr++;
+			}
+			if (v->map[y][x] == 'M')
+			{
+				ft_put_win(v, x, y, v->sprites.m_l[0]);
+				v->mouses_nbr++;
 			}
 			if (v->map[y][x] == 'C')
 			{
