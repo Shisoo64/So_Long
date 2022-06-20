@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/09 15:37:15 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:49:22 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ typedef struct s_sprites {
 
 }				t_sprites;
 
+typedef struct s_enemy {
+	char	id;
+	int		nbr;
+	void	*left[ENEMY_FRAMES + 1];
+	void	*right[ENEMY_FRAMES + 1];
+}				t_enemy;
+
+typedef struct s_mouse {
+	char	id;
+	int		nbr;
+	void	*left[ENEMY_FRAMES + 1];
+	void	*right[ENEMY_FRAMES + 1];
+}				t_mouse;
+
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
@@ -65,6 +79,8 @@ typedef struct s_vars {
 	int	monsters_nbr;
 	int	moves;
 	int	p_dir;
+	int	p_x;
+	int	p_y;
 	t_sprites	sprites;
 }				t_vars;
 
@@ -98,6 +114,6 @@ int frames(t_vars *vars);
 void ft_put_win(t_vars *v, int x, int y, void *sprite);
 void    monsters(t_vars *vars);
 void    mouses(t_vars *vars);
-void    move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c);
+void    move_enemy(t_vars *v, int d[3], void *sprite, char c);
 
 #endif

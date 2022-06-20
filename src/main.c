@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/20 15:11:02 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:50:05 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	monsters(t_vars *vars)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_enemy(vars, (int []){-1, 0}, vars->sprites.x_l[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){-1, 0, i}, vars->sprites.x_l[xsprite_i()], 'X');
 	if (dir == 1)
-		move_enemy(vars, (int []){1, 0}, vars->sprites.x_r[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){1, 0, i}, vars->sprites.x_r[xsprite_i()], 'X');
 	if (dir == 2)
-		move_enemy(vars, (int []){0, -1}, vars->sprites.x_l[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){0, -1, i}, vars->sprites.x_l[xsprite_i()], 'X');
 	if (dir == 3)
-		move_enemy(vars, (int []){0, 1}, vars->sprites.x_r[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){0, 1, i}, vars->sprites.x_r[xsprite_i()], 'X');
 }
 
 void	mouses(t_vars *vars)
@@ -39,16 +39,16 @@ void	mouses(t_vars *vars)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_enemy(vars, (int []){-1, 0}, vars->sprites.m_l[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){-1, 0, i}, vars->sprites.m_l[msprite_i()], 'M');
 	if (dir == 1)
-		move_enemy(vars, (int []){1, 0}, vars->sprites.m_r[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){1, 0, i}, vars->sprites.m_r[msprite_i()], 'M');
 	if (dir == 2)
-		move_enemy(vars, (int []){0, -1}, vars->sprites.m_l[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){0, -1, i}, vars->sprites.m_l[msprite_i()], 'M');
 	if (dir == 3)
-		move_enemy(vars, (int []){0, 1}, vars->sprites.m_r[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){0, 1, i}, vars->sprites.m_r[msprite_i()], 'M');
 }
 
-void	move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c)
+void	move_enemy(t_vars *v, int d[3], void *sprite, char c)
 {
 	int	x;
 	int	y;
@@ -63,9 +63,9 @@ void	move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c)
 		{
 			if (v->map[y][x] == c)
 			{
-				if (i == nbr && c == 'X' && v->map[y + d[0]][x + d[1]] == 'P')
+				if (i == d[2] && c == 'X' && v->map[y + d[0]][x + d[1]] == 'P')
 					exit_game(v);
-				if (i++ == nbr && v->map[y + d[0]][x + d[1]] == '0')
+				if (i++ == d[2] && v->map[y + d[0]][x + d[1]] == '0')
 				{	
 					v->map[y][x] = '0';
 					ft_put_win(v, x, y, v->sprites.f);
@@ -140,27 +140,23 @@ int	move_player(int dy, int dx, t_vars *v)
 
 	if (dx != 0)
 		v->p_dir = dx;
-	y = -1;
-	while (v->map[++y])
+	x = v->p_x;
+	y = v->p_y;
+	if (v->map[y][x] == 'P' && (v->map[y + dy][x + dx] == '0' || \
+		v->map[y + dy][x + dx] == 'C'))
 	{
-		x = -1;
-		while (v->map[y][++x])
-		{
-			if (v->map[y][x] == 'P' && (v->map[y + dy][x + dx] == '0' || \
-				v->map[y + dy][x + dx] == 'C'))
-			{
-				if (v->map[y + dy][x + dx] == 'C')
-					v->collec--;
-				v->map[y][x] = '0';
-				ft_put_win(v, x, y, v->sprites.f);
-				v->map[y + dy][x + dx] = 'P';
-				return (1);
-			}
-			if (v->map[y][x] == 'P' && \
-				v->map[y + dy][x + dx] == 'E' && v->collec == 0)
-				exit_game(v);
-		}
+		if (v->map[y + dy][x + dx] == 'C')
+			v->collec--;
+		v->map[y][x] = '0';
+		ft_put_win(v, x, y, v->sprites.f);
+		v->map[y + dy][x + dx] = 'P';
+		v->p_x += dx;
+		v->p_y += dy;
+		return (1);
 	}
+	if (v->map[y][x] == 'P' && \
+		v->map[y + dy][x + dx] == 'E' && v->collec == 0)
+		exit_game(v);
 	return (0);
 }
 

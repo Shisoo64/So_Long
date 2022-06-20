@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:16:43 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/09 15:34:38 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:46:16 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ void	print_map(t_vars *v)
 			if (v->map[y][x] == '0')
 				ft_put_win(v, x, y, v->sprites.f);
 			if (v->map[y][x] == 'P')
+			{
+				v->p_x = x;
+				v->p_y = y;
 				ft_put_win(v, x, y, v->sprites.p_r[0]);
+			}
 			if (v->map[y][x] == 'E')
 				ft_put_win(v, x, y, v->sprites.e[0]);
 			if (v->map[y][x] == 'X')
