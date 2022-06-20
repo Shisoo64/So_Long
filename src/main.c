@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/13 20:02:42 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/20 15:11:02 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	monsters(t_vars *vars)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_enemy(vars, (int[]){-1, 0}, vars->sprites.x_l[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){-1, 0}, vars->sprites.x_l[xsprite_i()], i, 'X');
 	if (dir == 1)
-		move_enemy(vars, (int[]){1, 0}, vars->sprites.x_r[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){1, 0}, vars->sprites.x_r[xsprite_i()], i, 'X');
 	if (dir == 2)
-		move_enemy(vars, (int[]){0, -1}, vars->sprites.x_l[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){0, -1}, vars->sprites.x_l[xsprite_i()], i, 'X');
 	if (dir == 3)
-		move_enemy(vars, (int[]){0, 1}, vars->sprites.x_r[xsprite_i()], i, 'X');
+		move_enemy(vars, (int []){0, 1}, vars->sprites.x_r[xsprite_i()], i, 'X');
 }
 
 void	mouses(t_vars *vars)
@@ -39,13 +39,13 @@ void	mouses(t_vars *vars)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_enemy(vars, (int[]){-1, 0}, vars->sprites.m_l[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){-1, 0}, vars->sprites.m_l[msprite_i()], i, 'M');
 	if (dir == 1)
-		move_enemy(vars, (int[]){1, 0}, vars->sprites.m_r[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){1, 0}, vars->sprites.m_r[msprite_i()], i, 'M');
 	if (dir == 2)
-		move_enemy(vars, (int[]){0, -1}, vars->sprites.m_l[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){0, -1}, vars->sprites.m_l[msprite_i()], i, 'M');
 	if (dir == 3)
-		move_enemy(vars, (int[]){0, 1}, vars->sprites.m_r[msprite_i()], i, 'M');
+		move_enemy(vars, (int []){0, 1}, vars->sprites.m_r[msprite_i()], i, 'M');
 }
 
 void	move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c)
@@ -60,6 +60,7 @@ void	move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c)
 	{
 		x = -1;
 		while (v->map[y][++x])
+		{
 			if (v->map[y][x] == c)
 			{
 				if (i == nbr && c == 'X' && v->map[y + d[0]][x + d[1]] == 'P')
@@ -73,6 +74,7 @@ void	move_enemy(t_vars *v, int d[2], void *sprite, int nbr, char c)
 					return ;
 				}
 			}
+		}
 	}
 }
 
@@ -224,7 +226,7 @@ int	main(int ac, char **av)
 	vars.collec = 0;
 	vars.mouses_nbr = 0;
 	vars.monsters_nbr = 0;
-	vars.moves = 0;
+	vars.moves = 1;
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),

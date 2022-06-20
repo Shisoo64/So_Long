@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:56:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/13 19:48:46 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/15 12:22:37 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	collec_animation(t_vars *vars)
 		x = -1;
 		while (vars->map[y][++x])
 			if (vars->map[y][x] == 'C')
-				mlx_put_image_to_window(vars->mlx, vars->win,
-					vars->sprites.c[i], x * IMG_SIZE, y * IMG_SIZE);
+				ft_put_win(vars, x, y, vars->sprites.c[i]);
 	}
 	i++;
 }
@@ -92,8 +91,7 @@ void	exit_animation(t_vars *vars)
 		x = -1;
 		while (vars->map[y][++x])
 			if (vars->map[y][x] == 'E')
-				mlx_put_image_to_window(vars->mlx, vars->win,
-					vars->sprites.e[i], x * IMG_SIZE, y * IMG_SIZE);
+				ft_put_win(vars, x, y, vars->sprites.e[i]);
 	}
 	i++;
 }
