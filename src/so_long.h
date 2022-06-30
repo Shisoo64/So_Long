@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/20 17:49:22 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/28 19:20:36 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_sprites {
 	void	*c[COLLEC_FRAMES + 1];
 	void	*e[EXIT_FRAMES + 1];
 	void	*f;
-	void	*w;
+	void	*w[3];
 	void	*w_d;
 	void	*w_dl;
 	void	*w_dr;
@@ -53,34 +53,22 @@ typedef struct s_sprites {
 
 }				t_sprites;
 
-typedef struct s_enemy {
-	char	id;
-	int		nbr;
-	void	*left[ENEMY_FRAMES + 1];
-	void	*right[ENEMY_FRAMES + 1];
-}				t_enemy;
-
-typedef struct s_mouse {
-	char	id;
-	int		nbr;
-	void	*left[ENEMY_FRAMES + 1];
-	void	*right[ENEMY_FRAMES + 1];
-}				t_mouse;
-
 typedef struct s_vars {
-	void	*mlx;
-	void	*win;
-	char	**map;
-	char	*mapname;
-	int	map_y;
-	int	map_x;
-	int	collec;
-	int	mouses_nbr;
-	int	monsters_nbr;
-	int	moves;
-	int	p_dir;
-	int	p_x;
-	int	p_y;
+	void		*mlx;
+	void		*win;
+	char		**map;
+	char		*mapname;
+	int			map_y;
+	int			map_x;
+	int			collec;
+	int			mouses_nbr;
+	int			*m_coord[2];
+	int			*x_coord[2];
+	int			monsters_nbr;
+	int			moves;
+	int			p_dir;
+	int			p_x;
+	int			p_y;
 	t_sprites	sprites;
 }				t_vars;
 
@@ -93,27 +81,32 @@ enum e_keycode
 	ESC = 0xFF1B
 };
 
-void    free_map(t_vars *vars);
-void    free_img(t_vars *v);
-void    exit_game(t_vars *vars);
-int ft_strlen_n(const char *s);
-void	print_wall(t_vars *v, int x, int y);
-void	print_map(t_vars *vars);
-char	**create_map(t_vars *vars);
-int	get_map_height(t_vars *vars);
+void		free_map(t_vars *vars);
+void		free_img(t_vars *v);
+void		free_enemies(t_vars *v);
+void		exit_game(t_vars *vars);
+int			ft_strlen_n(const char *s);
+void		print_wall(t_vars *v, int x, int y);
+void		print_map(t_vars *vars);
+char		**create_map(t_vars *vars);
+int			get_map_height(t_vars *vars);
 t_sprites	get_sprites(t_vars v);
-char	*ft_itoa(int n);
-int	ft_delay(int *timer, int delay);
-int psprite_i();
-int xsprite_i();
-int msprite_i();
-void    player_animation(t_vars *vars);
-void    collec_animation(t_vars *vars);
-void    exit_animation(t_vars *vars);
-int frames(t_vars *vars);
-void ft_put_win(t_vars *v, int x, int y, void *sprite);
-void    monsters(t_vars *vars);
-void    mouses(t_vars *vars);
-void    move_enemy(t_vars *v, int d[3], void *sprite, char c);
+char		*ft_itoa(int n);
+int			ft_delay(int *timer, int delay);
+int			psprite_i(void);
+int			xsprite_i(void);
+int			msprite_i(void);
+void		player_animation(t_vars *vars);
+void		collec_animation(t_vars *vars);
+void		exit_animation(t_vars *vars);
+int			frames(t_vars *vars);
+void		ft_put_win(t_vars *v, int x, int y, void *sprite);
+void		monsters(t_vars *vars);
+void		mouses(t_vars *vars);
+void		move_enemy(t_vars *v, int d[2], int i, void *sprite);
+void		move_mouse(t_vars *v, int d[2], int i, void *sprite);
+void		get_mouse_coord(t_vars *v);
+void		get_enemy_coord(t_vars *v);
+void		display_moves(t_vars *v);
 
 #endif

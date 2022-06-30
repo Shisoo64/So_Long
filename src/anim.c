@@ -6,13 +6,13 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:56:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/15 12:22:37 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:25:43 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	msprite_i()
+int	msprite_i(void)
 {
 	static int	i;
 
@@ -21,7 +21,7 @@ int	msprite_i()
 	return (i++);
 }
 
-int	xsprite_i()
+int	xsprite_i(void)
 {
 	static int	i;
 
@@ -30,7 +30,7 @@ int	xsprite_i()
 	return (i++);
 }
 
-int	psprite_i()
+int	psprite_i(void)
 {
 	static int	i;
 
@@ -60,11 +60,11 @@ void	player_animation(t_vars *vars)
 
 void	collec_animation(t_vars *vars)
 {
-	int		y;
-	int		x;
+	int			y;
+	int			x;
 	static int	i;
 
-	if (i > COLLEC_FRAMES)
+	if (++i > COLLEC_FRAMES)
 		i = 0;
 	y = -1;
 	while (vars->map[++y])
@@ -74,13 +74,12 @@ void	collec_animation(t_vars *vars)
 			if (vars->map[y][x] == 'C')
 				ft_put_win(vars, x, y, vars->sprites.c[i]);
 	}
-	i++;
 }
 
 void	exit_animation(t_vars *vars)
 {
-	int		x;
-	int		y;
+	int			x;
+	int			y;
 	static int	i;
 
 	if (vars->collec != 0 || i > EXIT_FRAMES)
@@ -91,7 +90,6 @@ void	exit_animation(t_vars *vars)
 		x = -1;
 		while (vars->map[y][++x])
 			if (vars->map[y][x] == 'E')
-				ft_put_win(vars, x, y, vars->sprites.e[i]);
+				ft_put_win(vars, x, y, vars->sprites.e[i++]);
 	}
-	i++;
 }

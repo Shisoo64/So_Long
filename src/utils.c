@@ -64,3 +64,17 @@ char	*ft_itoa(int n)
 		tab[0] = '-';
 	return (tab);
 }
+
+void	display_moves(t_vars *v)
+{
+	char	*str;
+
+	str = ft_itoa(v->moves++);
+	ft_put_win(v, 1, v->map_y - 1, v->sprites.w_d);
+	ft_put_win(v, 2, v->map_y - 1, v->sprites.w_d);
+	mlx_string_put(v->mlx, v->win, IMG_SIZE + 5,
+		(v->map_y) * IMG_SIZE - 10, 0xffffff, "Moves:");
+	mlx_string_put(v->mlx, v->win, IMG_SIZE + 45,
+		(v->map_y) * IMG_SIZE - 10, 0xffffff, str);
+	free(str);
+}

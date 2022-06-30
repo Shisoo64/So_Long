@@ -6,7 +6,7 @@
 /*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:16:43 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/20 17:46:16 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:19:44 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@ int	check_map(char **map, t_vars *v)
 	int	x;
 	int	y;
 
-
-	y = 0;
+	y = -1;
 	while (map[++y])
 	{
 		x = -1;
-		while (map[y][++x])
+		while (map[y][++x] != '\n')
 		{
-		//	if (map[y][x] != '1' && map[y][x] != '0' && map[y][x] != 'P' &&	map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != 'X')
-		//		return (0);
 			if (y == 0 && map[y][x] != '1')
 				return (0);
 			else if (y == v->map_y && map[y][x] != '1')
@@ -66,13 +63,13 @@ char	**create_map(t_vars *vars)
 	int		fd;
 	int		i;
 
-	i = 0;
+	i = -1;
 	vars->map_y = get_map_height(vars);
 	fd = open(vars->mapname, 0);
 	map = malloc(sizeof(char *) * (vars->map_y + 1));
-	map[0] = get_next_line(fd);
 	while (++i < vars->map_y)
 		map[i] = get_next_line(fd);
+	map[vars->map_y] = NULL;
 	close(fd);
 	if (check_map(map, vars))
 		return (map);
@@ -117,6 +114,54 @@ void	print_map(t_vars *v)
 			{
 				ft_put_win(v, x, y, v->sprites.c[0]);
 				v->collec++;
+			}
+		}
+	}
+}
+
+void	get_mouse_coord(t_vars *v)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	i = 0;
+	y = -1;
+	v->m_coord[0] = (int *)malloc(sizeof(int) * v->mouses_nbr);
+	v->m_coord[1] = (int *)malloc(sizeof(int) * v->mouses_nbr);
+	while (v->map[++y])
+	{
+		x = -1;
+		while (v->map[y][++x])
+		{
+			if (v->map[y][x] == 'M')
+			{
+				v->m_coord[0][i] = y;
+				v->m_coord[1][i++] = x;
+			}
+		}
+	}
+}
+
+void	get_enemy_coord(t_vars *v)
+{
+	int	x;
+	int	y;
+	int	i;
+	
+	i = 0;
+	y = -1;
+	v->x_coord[0] = (int *)malloc(sizeof(int) * v->monsters_nbr);
+	v->x_coord[1] = (int *)malloc(sizeof(int) * v->monsters_nbr);
+	while (v->map[++y])
+	{
+		x = -1;
+		while (v->map[y][++x])
+		{
+			if (v->map[y][x] == 'X')
+			{
+				v->x_coord[0][i] = y;
+				v->x_coord[1][i++] = x;
 			}
 		}
 	}

@@ -6,17 +6,19 @@
 #    By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:20:40 by rlaforge          #+#    #+#              #
-#    Updated: 2022/05/26 17:01:18 by rlaforge         ###   ########.fr        #
+#    Updated: 2022/06/23 18:03:26 by rlaforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	src/main.c \
 		src/utils.c \
+		src/enemies.c \
 		src/sprites.c \
 		src/map.c \
+		src/free.c \
 		src/anim.c
 
-CC = gcc
+CC = gcc -g
 
 NAME = so_long
 
