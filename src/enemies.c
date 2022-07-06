@@ -15,19 +15,22 @@
 void	monsters(t_vars *vars)
 {
 	static int	i;
+	static int	x;
 	int			dir;
 
+	if (x > ENEMY_FRAMES)
+		x = 0;
 	if (++i >= vars->monsters_nbr)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_enemy(vars, (int []){-1, 0}, i, vars->sprites.x_l[xsprite_i()]);
+		move_enemy(vars, (int []){-1, 0}, i, vars->sprites.x_l[x]);
 	if (dir == 1)
-		move_enemy(vars, (int []){1, 0}, i, vars->sprites.x_r[xsprite_i()]);
+		move_enemy(vars, (int []){1, 0}, i, vars->sprites.x_r[x]);
 	if (dir == 2)
-		move_enemy(vars, (int []){0, -1}, i, vars->sprites.x_l[xsprite_i()]);
+		move_enemy(vars, (int []){0, -1}, i, vars->sprites.x_l[x]);
 	if (dir == 3)
-		move_enemy(vars, (int []){0, 1}, i, vars->sprites.x_r[xsprite_i()]);
+		move_enemy(vars, (int []){0, 1}, i, vars->sprites.x_r[x]);
 }
 
 void	move_enemy(t_vars *v, int d[2], int i, void *sprite)
@@ -56,19 +59,22 @@ void	move_enemy(t_vars *v, int d[2], int i, void *sprite)
 void	mouses(t_vars *vars)
 {
 	static int	i;
+	static int	m;
 	int			dir;
 
+	if (m > ENEMY_FRAMES)
+		m = 0;
 	if (++i >= vars->mouses_nbr)
 		i = 0;
 	dir = rand() % 4;
 	if (dir == 0)
-		move_mouse(vars, (int []){-1, 0}, i, vars->sprites.m_l[msprite_i()]);
+		move_mouse(vars, (int []){-1, 0}, i, vars->sprites.m_l[m]);
 	if (dir == 1)
-		move_mouse(vars, (int []){1, 0}, i, vars->sprites.m_r[msprite_i()]);
+		move_mouse(vars, (int []){1, 0}, i, vars->sprites.m_r[m]);
 	if (dir == 2)
-		move_mouse(vars, (int []){0, -1}, i, vars->sprites.m_l[msprite_i()]);
+		move_mouse(vars, (int []){0, -1}, i, vars->sprites.m_l[m]);
 	if (dir == 3)
-		move_mouse(vars, (int []){0, 1}, i, vars->sprites.m_r[msprite_i()]);
+		move_mouse(vars, (int []){0, 1}, i, vars->sprites.m_r[m]);
 }
 
 void	move_mouse(t_vars *v, int d[2], int i, void *sprite)

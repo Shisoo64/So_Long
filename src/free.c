@@ -12,6 +12,20 @@
 
 #include "so_long.h"
 
+void	exit_game(t_vars *vars)
+{
+	free_map(vars);
+	free_img(vars);
+	free(vars->m_coord[0]);
+	free(vars->m_coord[1]);
+	free(vars->x_coord[0]);
+	free(vars->x_coord[1]);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
+	exit(0);
+}
+
 void	free_map(t_vars *vars)
 {
 	int	y;
@@ -43,6 +57,7 @@ void	free_img(t_vars *v)
 	mlx_destroy_image(v->mlx, v->sprites.c[2]);
 	mlx_destroy_image(v->mlx, v->sprites.c[3]);
 	mlx_destroy_image(v->mlx, v->sprites.f);
+	mlx_destroy_image(v->mlx, v->sprites.win);
 	free_enemies(v);
 }
 
@@ -72,18 +87,4 @@ void	free_enemies(t_vars *v)
 	mlx_destroy_image(v->mlx, v->sprites.m_r[1]);
 	mlx_destroy_image(v->mlx, v->sprites.m_r[2]);
 	mlx_destroy_image(v->mlx, v->sprites.m_r[3]);
-}
-
-void	exit_game(t_vars *vars)
-{
-	free_map(vars);
-	free_img(vars);
-	free(vars->m_coord[0]);
-	free(vars->m_coord[1]);
-	free(vars->x_coord[0]);
-	free(vars->x_coord[1]);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
-	exit(0);
 }

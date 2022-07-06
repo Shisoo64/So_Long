@@ -35,7 +35,7 @@ int	move_player(int dy, int dx, t_vars *v)
 	}
 	if (v->map[y][x] == 'P' && \
 		v->map[y + dy][x + dx] == 'E' && v->collec == 0)
-		exit_game(v);
+		win_game(v);
 	return (0);
 }
 
@@ -43,6 +43,8 @@ int	frames(t_vars *vars)
 {
 	static int	i;
 
+	if (vars->game_end == 1)
+		return (0);
 	if (i++ / 4)
 	{
 		i = 0;
@@ -63,6 +65,8 @@ int	inputs(int key, t_vars *vars)
 {
 	if (key == ESC)
 		exit_game(vars);
+	else if (vars->game_end == 1)
+		return (0);
 	else if (key == KEY_UP)
 		move_player(1, 0, vars);
 	else if (key == KEY_LEFT)
@@ -91,6 +95,7 @@ int	main(int ac, char **av)
 		return (1);
 	vars.mapname = av[1];
 	vars.mlx = mlx_init();
+	vars.game_end = 0;
 	vars.p_dir = 1;
 	vars.collec = 0;
 	vars.mouses_nbr = 0;

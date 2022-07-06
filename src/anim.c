@@ -12,24 +12,6 @@
 
 #include "so_long.h"
 
-int	msprite_i(void)
-{
-	static int	i;
-
-	if (i > ENEMY_FRAMES)
-		i = 0;
-	return (i++);
-}
-
-int	xsprite_i(void)
-{
-	static int	i;
-
-	if (i > ENEMY_FRAMES)
-		i = 0;
-	return (i++);
-}
-
 int	psprite_i(void)
 {
 	static int	i;

@@ -41,6 +41,7 @@ typedef struct s_sprites {
 	void	*c[COLLEC_FRAMES + 1];
 	void	*e[EXIT_FRAMES + 1];
 	void	*f;
+	void	*win;
 	void	*w[3];
 	void	*w_d;
 	void	*w_dl;
@@ -69,6 +70,7 @@ typedef struct s_vars {
 	int			p_dir;
 	int			p_x;
 	int			p_y;
+	int			game_end;
 	t_sprites	sprites;
 }				t_vars;
 
@@ -94,8 +96,6 @@ t_sprites	get_sprites(t_vars v);
 char		*ft_itoa(int n);
 int			ft_delay(int *timer, int delay);
 int			psprite_i(void);
-int			xsprite_i(void);
-int			msprite_i(void);
 void		player_animation(t_vars *vars);
 void		collec_animation(t_vars *vars);
 void		exit_animation(t_vars *vars);
@@ -108,5 +108,8 @@ void		move_mouse(t_vars *v, int d[2], int i, void *sprite);
 void		get_mouse_coord(t_vars *v);
 void		get_enemy_coord(t_vars *v);
 void		display_moves(t_vars *v);
+void		print_map_ext(t_vars *v, char c, int y, int x);
+void		win_game(t_vars *v);
+int			check_map(char **map, t_vars *v);
 
 #endif

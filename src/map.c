@@ -12,30 +12,6 @@
 
 #include "so_long.h"
 
-int	check_map(char **map, t_vars *v)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (map[++y])
-	{
-		x = -1;
-		while (map[y][++x] != '\n')
-		{
-			if (y == 0 && map[y][x] != '1')
-				return (0);
-			else if (y == v->map_y && map[y][x] != '1')
-				return (0);
-			else if (x == 0 && map[y][x] != '1')
-				return (0);
-			else if (x == v->map_x && map[y][x] != '1')
-				return (0);
-		}
-	}
-	return (1);
-}
-
 int	get_map_height(t_vars *vars)
 {
 	int		fd;
@@ -100,69 +76,7 @@ void	print_map(t_vars *v)
 			}
 			if (v->map[y][x] == 'E')
 				ft_put_win(v, x, y, v->sprites.e[0]);
-			if (v->map[y][x] == 'X')
-			{
-				ft_put_win(v, x, y, v->sprites.x_l[0]);
-				v->monsters_nbr++;
-			}
-			if (v->map[y][x] == 'M')
-			{
-				ft_put_win(v, x, y, v->sprites.m_l[0]);
-				v->mouses_nbr++;
-			}
-			if (v->map[y][x] == 'C')
-			{
-				ft_put_win(v, x, y, v->sprites.c[0]);
-				v->collec++;
-			}
-		}
-	}
-}
-
-void	get_mouse_coord(t_vars *v)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	i = 0;
-	y = -1;
-	v->m_coord[0] = (int *)malloc(sizeof(int) * v->mouses_nbr);
-	v->m_coord[1] = (int *)malloc(sizeof(int) * v->mouses_nbr);
-	while (v->map[++y])
-	{
-		x = -1;
-		while (v->map[y][++x])
-		{
-			if (v->map[y][x] == 'M')
-			{
-				v->m_coord[0][i] = y;
-				v->m_coord[1][i++] = x;
-			}
-		}
-	}
-}
-
-void	get_enemy_coord(t_vars *v)
-{
-	int	x;
-	int	y;
-	int	i;
-	
-	i = 0;
-	y = -1;
-	v->x_coord[0] = (int *)malloc(sizeof(int) * v->monsters_nbr);
-	v->x_coord[1] = (int *)malloc(sizeof(int) * v->monsters_nbr);
-	while (v->map[++y])
-	{
-		x = -1;
-		while (v->map[y][++x])
-		{
-			if (v->map[y][x] == 'X')
-			{
-				v->x_coord[0][i] = y;
-				v->x_coord[1][i++] = x;
-			}
+			print_map_ext(v, v->map[y][x], y, x);
 		}
 	}
 }
