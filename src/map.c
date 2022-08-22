@@ -20,6 +20,12 @@ int	get_map_height(t_vars *vars)
 
 	i = 0;
 	fd = open(vars->mapname, 0);
+	if (fd == -1)
+	{
+		ft_printf("Error\nProblem with mapname", "%s");
+		exit_game_light(vars, 0);
+		return (0);
+	}
 	line = get_next_line(fd);
 	vars->map_x = ft_strlen_n(line);
 	while (line)
@@ -47,9 +53,6 @@ char	**create_map(t_vars *vars)
 		map[i] = get_next_line(fd);
 	map[vars->map_y] = NULL;
 	close(fd);
-	if (check_map(map, vars))
-		return (map);
-	exit(0);
 	return (map);
 }
 
@@ -78,5 +81,24 @@ void	print_map(t_vars *v)
 				ft_put_win(v, x, y, v->sprites.e[0]);
 			print_map_ext(v, v->map[y][x], y, x);
 		}
+	}
+}
+
+void	print_map_ext(t_vars *v, char c, int y, int x)
+{
+	if (c == 'X')
+	{
+		ft_put_win(v, x, y, v->sprites.x_l[0]);
+		v->monsters_nbr++;
+	}
+	if (c == 'M')
+	{
+		ft_put_win(v, x, y, v->sprites.m_l[0]);
+		v->mouses_nbr++;
+	}
+	if (c == 'C')
+	{
+		ft_put_win(v, x, y, v->sprites.c[0]);
+		v->collec++;
 	}
 }

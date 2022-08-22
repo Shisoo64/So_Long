@@ -87,6 +87,7 @@ void		free_map(t_vars *vars);
 void		free_img(t_vars *v);
 void		free_enemies(t_vars *v);
 void		exit_game(t_vars *vars);
+void		exit_game_light(t_vars *vars, int map);
 int			ft_strlen_n(const char *s);
 void		print_wall(t_vars *v, int x, int y);
 void		print_map(t_vars *vars);
@@ -111,5 +112,10 @@ void		display_moves(t_vars *v);
 void		print_map_ext(t_vars *v, char c, int y, int x);
 void		win_game(t_vars *v);
 int			check_map(char **map, t_vars *v);
+void		ft_error(t_vars *v, char *str);
+void		check_items(char **map, t_vars *v);
+int			check_borders(char **map, t_vars *v);
+int			check_rectangle(char **map, t_vars *v);
+int			ft_printf(const char *str, ...);
 
 #endif

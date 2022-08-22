@@ -15,26 +15,7 @@
 void	win_game(t_vars *v)
 {
 	v->game_end = 1;
-	ft_put_win(v, v->map_x / 2, v->map_y / 2, v->sprites.win);
-}
-
-void	print_map_ext(t_vars *v, char c, int y, int x)
-{
-	if (c == 'X')
-	{
-		ft_put_win(v, x, y, v->sprites.x_l[0]);
-		v->monsters_nbr++;
-	}
-	if (c == 'M')
-	{
-		ft_put_win(v, x, y, v->sprites.m_l[0]);
-		v->mouses_nbr++;
-	}
-	if (c == 'C')
-	{
-		ft_put_win(v, x, y, v->sprites.c[0]);
-		v->collec++;
-	}
+	ft_put_win(v, v->map_x / 2 - 3, v->map_y / 2, v->sprites.win);
 }
 
 void	get_mouse_coord(t_vars *v)

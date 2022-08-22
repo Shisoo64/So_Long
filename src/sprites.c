@@ -60,6 +60,7 @@ t_sprites	get_sprites(t_vars v)
 	int			iy;
 
 	s.f = mlx_xpm_file_to_image(v.mlx, "sprt/floor.xpm", &ix, &iy);
+	s.win = mlx_xpm_file_to_image(v.mlx, "./sprt/win.xpm", &ix, &iy);
 	s.c[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/collec0.xpm", &ix, &iy);
 	s.c[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/collec1.xpm", &ix, &iy);
 	s.c[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/collec2.xpm", &ix, &iy);

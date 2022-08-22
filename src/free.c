@@ -26,6 +26,16 @@ void	exit_game(t_vars *vars)
 	exit(0);
 }
 
+void	exit_game_light(t_vars *vars, int map)
+{
+	if (map)
+		free_map(vars);
+	free_img(vars);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
+	exit(0);
+}
+
 void	free_map(t_vars *vars)
 {
 	int	y;
