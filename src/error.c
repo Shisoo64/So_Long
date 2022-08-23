@@ -3,24 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:08:28 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/07/06 16:08:29 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:09:41 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	check_map(char **map, t_vars *v)
+void	check_map(char **map, t_vars *v)
 {
-	if (check_rectangle(map, v))
-		return (1);
-	if (check_borders(map, v))
-		return (1);
-	if (check_items(map, v))
-		return (1);
-	return (0);
+	check_rectangle(map, v);
+	check_borders(map, v);
+	check_items(map, v);
 }
 
 int	check_rectangle(char **map, t_vars *v)
@@ -64,9 +60,9 @@ void	check_items(char **map, t_vars *v)
 	int	y;
 	int	i[3];
 
+	i[0] = 0;
 	i[1] = 0;
 	i[2] = 0;
-	i[3] = 0;
 	y = -1;
 	while (map[++y])
 	{
@@ -74,22 +70,23 @@ void	check_items(char **map, t_vars *v)
 		while (map[y][++x] != '\n')
 		{
 			if (map[y][x] == 'E')
-				i[1]++;
+				i[0]++;
 			else if (map[y][x] == 'P')
-				i[2]++;
+				i[1]++;
 			else if (map[y][x] == 'C')
-				i[3]++;
+				i[2]++;
 			else if (map[y][x] != '1' && map[y][x] != '0' \
 			&& map[y][x] != 'M' && map[y][x] != 'X' && map[y][x] != 'C')
 				ft_error(v, "Error\nWrong item on map.\n");
 		}
 	}
-	if (i[1] != 1 || i[3] <= 0 || i[2] != 1)
+	if (i[0] != 1 || i[2] <= 0 || i[1] != 1)
 		ft_error(v, "Error\nProblem with item numbers.\n");
 }
 
-void	ft_error(t_vars *v, char *str)
+int	ft_error(t_vars *v, char *str)
 {
 	ft_printf(str, "%s");
 	exit_game_light(v, 1);
+	return (1);
 }

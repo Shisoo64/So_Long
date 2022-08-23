@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:09:24 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/07/06 16:16:08 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:04:21 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	win_game(t_vars *v)
 {
 	v->game_end = 1;
-	ft_put_win(v, v->map_x / 2 - 3, v->map_y / 2, v->sprites.win);
+	mlx_put_image_to_window(v->mlx, v->win, v->sprites.win, \
+	v->map_x * 16 - 145, v->map_y * 16 - 33);
 }
 
 void	get_mouse_coord(t_vars *v)

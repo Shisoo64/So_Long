@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/28 19:20:36 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:04:23 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include <mlx.h>
-# include "./get_next_line/get_next_line.h"
+# include "../mlx_linux/mlx.h"
+# include "../libft/libft.h"
 
 # define IMG_SIZE 32
 # define FPS 30
@@ -111,8 +111,8 @@ void		get_enemy_coord(t_vars *v);
 void		display_moves(t_vars *v);
 void		print_map_ext(t_vars *v, char c, int y, int x);
 void		win_game(t_vars *v);
-int			check_map(char **map, t_vars *v);
-void		ft_error(t_vars *v, char *str);
+void		check_map(char **map, t_vars *v);
+int			ft_error(t_vars *v, char *str);
 void		check_items(char **map, t_vars *v);
 int			check_borders(char **map, t_vars *v);
 int			check_rectangle(char **map, t_vars *v);

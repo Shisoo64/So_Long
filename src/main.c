@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/08/18 17:34:30 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:27:08 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ int	main(int ac, char **av)
 	vars.moves = 1;
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
-	if (check_map(vars.map, &vars))
-		exit_game_light(&vars, 1);
+	check_map(vars.map, &vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),
 			IMG_SIZE * (vars.map_y), "So_long Romil!");
 	print_map(&vars);

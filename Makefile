@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:20:40 by rlaforge          #+#    #+#              #
-#    Updated: 2022/07/08 17:04:39 by rlaforge         ###   ########.fr        #
+#    Updated: 2022/08/23 16:00:39 by rlaforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,38 +20,41 @@ SRCS =	src/main.c \
 		src/error.c \
 		src/anim.c
 
-CC = gcc -g
+SRCS_BONUS = bonus/
+
+CC = gcc
+
+LIBFT = libft/libft.a
+
+MLX = mlx_linux/libmlx.a
+
+CFLAGS = -Wall -Wextra -Werror -g
 
 NAME = so_long
 
 OBJS = $(SRCS:.c=.o)
 
-CLIB = ar -rcs
-
-GNL_DIR = ./src/get_next_line/
-
-GNL = get_next_line.c \
-	get_next_line_utils.c \
-
-GNL_OBJS = ${addprefix ${GNL_DIR}, ${GNL:.c=.o}}
-
-PRTF_DIR = ./src/ft_printf/
-
-PRTF = ft_printf.c \
-	ft_printf_utils.c \
-
-PRTF_OBJS = ${addprefix ${PRTF_DIR}, ${PRTF:.c=.o}}
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
+	
+$(LIBFT) :
+	make -C libft/
 
-%.o: %.c
-	$(CC) -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
+$(MLX) :
+	make -C mlx_linux/
 
-$(NAME): $(OBJS) $(GNL_OBJS) $(PRTF_OBJS)
-	$(CC) $(OBJS) $(GNL_OBJS) $(PRTF_OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(MLX) -lXext -lX11 -o $(NAME)
+
+bonus : $(OBJS_BONUS) $(LIBFT) $(MLX)
+	$(CC) $(OBJS_BONUS) $(CFLAGS) $(LIBFT) $(MLX) -lXext -lX11 -o $(NAME)
 
 clean :
-	rm -f $(OBJS) $(GNL_OBJS) $(PRTF_OBJS)
+	rm -f $(OBJS)
+	rm -f $(OBJS_BONUS)
+	make -C libft/ fclean
+	make -C mlx_linux/ clean
 
 fclean : clean
 	rm -rf $(NAME)
