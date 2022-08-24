@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:16:43 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/08/24 15:27:51 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:19:44 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	print_map(t_vars *v)
 			{
 				v->p_x = x;
 				v->p_y = y;
-				ft_put_win(v, x, y, v->sprites.p);
+				ft_put_win(v, x, y, v->sprites.p_r[0]);
 			}
 			if (v->map[y][x] == 'E')
-				ft_put_win(v, x, y, v->sprites.e);
+				ft_put_win(v, x, y, v->sprites.e[0]);
 			print_map_ext(v, v->map[y][x], y, x);
 		}
 	}
@@ -86,9 +86,19 @@ void	print_map(t_vars *v)
 
 void	print_map_ext(t_vars *v, char c, int y, int x)
 {
+	if (c == 'X')
+	{
+		ft_put_win(v, x, y, v->sprites.x_l[0]);
+		v->monsters_nbr++;
+	}
+	if (c == 'M')
+	{
+		ft_put_win(v, x, y, v->sprites.m_l[0]);
+		v->mouses_nbr++;
+	}
 	if (c == 'C')
 	{
-		ft_put_win(v, x, y, v->sprites.c);
+		ft_put_win(v, x, y, v->sprites.c[0]);
 		v->collec++;
 	}
 }

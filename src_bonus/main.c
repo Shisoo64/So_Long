@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/08/24 15:45:08 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:27:08 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	move_player(int dy, int dx, t_vars *v)
 			v->collec--;
 		v->map[y][x] = '0';
 		ft_put_win(v, x, y, v->sprites.f);
-		ft_put_win(v, x + dx, y + dy, v->sprites.p);
 		v->map[y + dy][x + dx] = 'P';
 		v->p_x += dx;
 		v->p_y += dy;
@@ -36,7 +35,29 @@ int	move_player(int dy, int dx, t_vars *v)
 	}
 	if (v->map[y][x] == 'P' && \
 		v->map[y + dy][x + dx] == 'E' && v->collec == 0)
-		exit_game(v);
+		win_game(v);
+	return (0);
+}
+
+int	frames(t_vars *vars)
+{
+	static int	i;
+
+	if (vars->game_end == 1)
+		return (0);
+	if (i++ / 4)
+	{
+		i = 0;
+		collec_animation(vars);
+		exit_animation(vars);
+	}
+	if (i / 2 && vars->monsters_nbr != 0 && vars->mouses_nbr != 0)
+	{
+		mouses(vars);
+		monsters(vars);
+	}
+	player_animation(vars);
+	usleep(1000000 / FPS);
 	return (0);
 }
 
@@ -44,6 +65,8 @@ int	inputs(int key, t_vars *vars)
 {
 	if (key == ESC)
 		exit_game(vars);
+	else if (vars->game_end == 1)
+		return (0);
 	else if (key == KEY_UP)
 		move_player(1, 0, vars);
 	else if (key == KEY_LEFT)
@@ -72,8 +95,11 @@ int	main(int ac, char **av)
 		return (1);
 	vars.mapname = av[1];
 	vars.mlx = mlx_init();
+	vars.game_end = 0;
 	vars.p_dir = 1;
 	vars.collec = 0;
+	vars.mouses_nbr = 0;
+	vars.monsters_nbr = 0;
 	vars.moves = 1;
 	vars.sprites = get_sprites(vars);
 	vars.map = create_map(&vars);
@@ -81,7 +107,10 @@ int	main(int ac, char **av)
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),
 			IMG_SIZE * (vars.map_y), "So_long Romil!");
 	print_map(&vars);
+	get_mouse_coord(&vars);
+	get_enemy_coord(&vars);
 	mlx_key_hook(vars.win, inputs, &vars);
+	mlx_loop_hook(vars.mlx, frames, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, &vars);
 	mlx_loop(vars.mlx);
 }

@@ -1,0 +1,6 @@
+
+# vscode settings
+.vscode/
+
+# .o settings
+*.o

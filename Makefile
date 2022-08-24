@@ -6,21 +6,26 @@
 #    By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:20:40 by rlaforge          #+#    #+#              #
-#    Updated: 2022/08/23 16:00:39 by rlaforge         ###   ########.fr        #
+#    Updated: 2022/08/24 15:41:58 by rlaforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	src/main.c \
 		src/utils.c \
-		src/utils2.c \
-		src/enemies.c \
 		src/sprites.c \
 		src/map.c \
 		src/free.c \
-		src/error.c \
-		src/anim.c
+		src/error.c
 
-SRCS_BONUS = bonus/
+SRCS_BONUS =	src_bonus/main.c \
+				src_bonus/utils.c \
+				src_bonus/utils2.c \
+				src_bonus/enemies.c \
+				src_bonus/sprites.c \
+				src_bonus/map.c \
+				src_bonus/free.c \
+				src_bonus/error.c \
+				src_bonus/anim.c
 
 CC = gcc
 

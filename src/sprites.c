@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:57:41 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/28 16:13:11 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:22:25 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	get_sprites_walls(t_sprites *s, t_vars v)
 	int			ix;
 	int			iy;
 
-	s->w[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/wall0.xpm", &ix, &iy);
-	s->w[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/wall1.xpm", &ix, &iy);
-	s->w[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/wall2.xpm", &ix, &iy);
+	s->w = mlx_xpm_file_to_image(v.mlx, "./sprt/wall0.xpm", &ix, &iy);
 	s->w_u = mlx_xpm_file_to_image(v.mlx, "./sprt/wall_up.xpm", &ix, &iy);
 	s->w_ul = mlx_xpm_file_to_image(v.mlx, "./sprt/wall_upl.xpm", &ix, &iy);
 	s->w_ur = mlx_xpm_file_to_image(v.mlx, "./sprt/wall_upr.xpm", &ix, &iy);
@@ -30,29 +28,6 @@ void	get_sprites_walls(t_sprites *s, t_vars v)
 	s->w_dr = mlx_xpm_file_to_image(v.mlx, "./sprt/wall_downr.xpm", &ix, &iy);
 }
 
-void	get_sprites_enemies(t_sprites *s, t_vars v)
-{
-	int			ix;
-	int			iy;
-
-	s->x_l[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/xleft0.xpm", &ix, &iy);
-	s->x_l[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/xleft1.xpm", &ix, &iy);
-	s->x_l[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/xleft2.xpm", &ix, &iy);
-	s->x_l[3] = mlx_xpm_file_to_image(v.mlx, "./sprt/xleft3.xpm", &ix, &iy);
-	s->x_r[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/xright0.xpm", &ix, &iy);
-	s->x_r[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/xright1.xpm", &ix, &iy);
-	s->x_r[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/xright2.xpm", &ix, &iy);
-	s->x_r[3] = mlx_xpm_file_to_image(v.mlx, "./sprt/xright3.xpm", &ix, &iy);
-	s->m_l[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/mleft0.xpm", &ix, &iy);
-	s->m_l[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/mleft1.xpm", &ix, &iy);
-	s->m_l[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/mleft2.xpm", &ix, &iy);
-	s->m_l[3] = mlx_xpm_file_to_image(v.mlx, "./sprt/mleft3.xpm", &ix, &iy);
-	s->m_r[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/mright0.xpm", &ix, &iy);
-	s->m_r[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/mright1.xpm", &ix, &iy);
-	s->m_r[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/mright2.xpm", &ix, &iy);
-	s->m_r[3] = mlx_xpm_file_to_image(v.mlx, "./sprt/mright3.xpm", &ix, &iy);
-}
-
 t_sprites	get_sprites(t_vars v)
 {
 	t_sprites	s;
@@ -60,24 +35,10 @@ t_sprites	get_sprites(t_vars v)
 	int			iy;
 
 	s.f = mlx_xpm_file_to_image(v.mlx, "sprt/floor.xpm", &ix, &iy);
-	s.win = mlx_xpm_file_to_image(v.mlx, "./sprt/win.xpm", &ix, &iy);
-	s.c[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/collec0.xpm", &ix, &iy);
-	s.c[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/collec1.xpm", &ix, &iy);
-	s.c[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/collec2.xpm", &ix, &iy);
-	s.c[3] = mlx_xpm_file_to_image(v.mlx, "./sprt/collec3.xpm", &ix, &iy);
-	s.p_l[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/pleft0.xpm", &ix, &iy);
-	s.p_l[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/pleft1.xpm", &ix, &iy);
-	s.p_l[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/pleft2.xpm", &ix, &iy);
-	s.p_l[3] = mlx_xpm_file_to_image(v.mlx, "./sprt/pleft3.xpm", &ix, &iy);
-	s.p_r[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/pright0.xpm", &ix, &iy);
-	s.p_r[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/pright1.xpm", &ix, &iy);
-	s.p_r[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/pright2.xpm", &ix, &iy);
-	s.p_r[3] = mlx_xpm_file_to_image(v.mlx, "./sprt/pright3.xpm", &ix, &iy);
-	s.e[0] = mlx_xpm_file_to_image(v.mlx, "./sprt/exit0.xpm", &ix, &iy);
-	s.e[1] = mlx_xpm_file_to_image(v.mlx, "./sprt/exit1.xpm", &ix, &iy);
-	s.e[2] = mlx_xpm_file_to_image(v.mlx, "./sprt/exit2.xpm", &ix, &iy);
+	s.c = mlx_xpm_file_to_image(v.mlx, "./sprt/collec0.xpm", &ix, &iy);
+	s.p = mlx_xpm_file_to_image(v.mlx, "./sprt/pright0.xpm", &ix, &iy);
+	s.e = mlx_xpm_file_to_image(v.mlx, "./sprt/exit1.xpm", &ix, &iy);
 	get_sprites_walls(&s, v);
-	get_sprites_enemies(&s, v);
 	return (s);
 }
 
@@ -106,5 +67,5 @@ void	print_wall(t_vars *v, int x, int y)
 	else if (x == v->map_x)
 		ft_put_win(v, x, y, v->sprites.w_r);
 	else
-		ft_put_win(v, x, y, v->sprites.w[rand() % 3]);
+		ft_put_win(v, x, y, v->sprites.w);
 }
