@@ -2,5 +2,8 @@
 # vscode settings
 .vscode/
 
-# .o settings
+# compiled things
 *.o
+so_long
+libft/libft.a
+
