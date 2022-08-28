@@ -27,44 +27,6 @@ int	ft_strlen_n(const char *s)
 	return (--i);
 }
 
-void	ft_count(int n, int i[2])
-{
-	int	x;
-
-	i[0] = 1;
-	i[1] = 0;
-	if (n < 0)
-		i[1]++;
-	x = n;
-	while (x >= 10 || x <= -10)
-	{
-		x /= 10;
-		i[0]++;
-	}
-}
-
-char	*ft_itoa(int n)
-{
-	char	*tab;
-	int		i[2];
-
-	ft_count(n, i);
-	if (i[1])
-		n = -n;
-	tab = malloc(sizeof(char) * ((i[0] += i[1]) + 1));
-	if (!tab)
-		return (NULL);
-	tab[i[0]] = '\0';
-	while (i[0]--)
-	{
-		tab[i[0]] = (n % 10) + '0';
-		n /= 10;
-	}
-	if (i[1])
-		tab[0] = '-';
-	return (tab);
-}
-
 void	display_moves(t_vars *v)
 {
 	char	*str;
@@ -77,4 +39,16 @@ void	display_moves(t_vars *v)
 	mlx_string_put(v->mlx, v->win, IMG_SIZE + 45,
 		(v->map_y) * IMG_SIZE - 10, 0xffffff, str);
 	free(str);
+}
+
+void    check_map_ext(t_vars *v)
+{
+        int             i;
+        char    *ext;
+
+        i = 1;
+        ext = ".ber";
+        while (++i < 5)
+                if (v->mapname[ft_strlen(v->mapname) - i] != ext[4 - i])
+                        ft_error(v, "Error\nProblem with map extension.\n");
 }

@@ -17,6 +17,7 @@ void	check_map(char **map, t_vars *v)
 	check_rectangle(map, v);
 	check_borders(map, v);
 	check_items(map, v);
+	check_map_ext(v);
 }
 
 int	check_rectangle(char **map, t_vars *v)
