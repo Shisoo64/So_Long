@@ -14,8 +14,16 @@ Move with WASD
 
 **1. 🗜️Compiling the project :**
 
+Mandatory :
+
 ```shell
 $ make
+```
+
+Bonus :
+
+```shell
+$ make bonus
 ```
 
 **2. 🧹Cleaning all binary (.o) and executable files :**
