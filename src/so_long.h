@@ -13,14 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <stddef.h>
-# include <string.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+#include <fcntl.h>
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 
@@ -86,7 +79,7 @@ int			ft_error(t_vars *v, char *str);
 void		check_items(char **map, t_vars *v);
 int			check_borders(char **map, t_vars *v);
 int			check_rectangle(char **map, t_vars *v);
-void    		check_map_ext(t_vars *v);
+void    	check_map_ext(t_vars *v);
 int			ft_printf(const char *str, ...);
 
 #endif

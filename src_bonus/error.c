@@ -27,7 +27,7 @@ int	check_rectangle(char **map, t_vars *v)
 	y = -1;
 	while (map[++y])
 		if (ft_strlen(map[y]) != ft_strlen(map[0]))
-			return (ft_error(v, "Error\nMap is not a rectangle.\n"));
+			ft_error(v, "Error\nMap is not a rectangle.\n");
 	return (0);
 }
 
@@ -43,13 +43,13 @@ int	check_borders(char **map, t_vars *v)
 		while (map[y][++x] != '\n')
 		{
 			if (y == 0 && map[y][x] != '1')
-				return (ft_error(v, "Error\nWrong map border.\n"));
+				ft_error(v, "Error\nWrong map border.\n");
 			else if (y == v->map_y && map[y][x] != '1')
-				return (ft_error(v, "Error\nWrong map border.\n"));
+				ft_error(v, "Error\nWrong map border.\n");
 			else if (x == 0 && map[y][x] != '1')
-				return (ft_error(v, "Error\nWrong map border.\n"));
+				ft_error(v, "Error\nWrong map border.\n");
 			else if (x == v->map_x && map[y][x] != '1')
-				return (ft_error(v, "Error\nWrong map border.\n"));
+				ft_error(v, "Error\nWrong map border.\n");
 		}
 	}
 	return (0);
