@@ -19,6 +19,13 @@
 
 # define IMG_SIZE 32
 
+typedef struct s_node
+{
+	struct s_node	*prev;
+	int	y;
+	int	x;
+}				t_node;
+
 typedef struct s_sprites {
 	void	*p;
 	void	*c;
