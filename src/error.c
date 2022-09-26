@@ -17,7 +17,6 @@
 void	newnode(t_node **head, int y, int x)
 {
 	t_node	*node;
-	t_node	*tmp;
 
 	node = malloc(sizeof(t_node));
 	if (node)
@@ -31,9 +30,8 @@ void	newnode(t_node **head, int y, int x)
 		*head = node;
 		return ;
 	}
-	tmp = *head;
+	node->prev = *head;
 	*head = node;
-	node->prev = tmp;
 }
 
 void	check_doable(char **mapy, t_vars *v)
@@ -52,7 +50,7 @@ void	check_doable(char **mapy, t_vars *v)
 
 	x = 7;
 	y = 2;
-	
+
 	newnode(&move, y, x);
 	while (move != NULL)
 	{
@@ -66,9 +64,9 @@ void	check_doable(char **mapy, t_vars *v)
 			newnode(&move, y--, x);
 		else if (x - 1 > 0 && map[y][x - 1] != '1' && map[y][x - 1] != 'V')
 			newnode(&move, y, x--);
-		else if (y + 1 < v->map_y && map[y + 1][x] != '1' && map[y + 1][x] != 'V')
+		else if (y + 1 < v->map_y - 2 && map[y + 1][x] != '1' && map[y + 1][x] != 'V')
 			newnode(&move, y++, x);
-		else if (x + 1 < v->map_x && map[y][x + 1] != '1' && map[y][x + 1] != 'V')
+		else if (x + 1 < v->map_x - 2 && map[y][x + 1] != '1' && map[y][x + 1] != 'V')
 			newnode(&move, y, x++);
 		else
 		{
