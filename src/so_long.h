@@ -86,7 +86,8 @@ int			ft_error(t_vars *v, char *str);
 void		check_items(char **map, t_vars *v);
 int			check_borders(char **map, t_vars *v);
 int			check_rectangle(char **map, t_vars *v);
-void    	check_map_ext(t_vars *v);
+void		check_map_ext(t_vars *v);
 int			ft_printf(const char *str, ...);
+void		check_if_doable(t_vars *v);
 
 #endif

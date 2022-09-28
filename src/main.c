@@ -81,6 +81,7 @@ int	main(int ac, char **av)
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),
 			IMG_SIZE * (vars.map_y), "So_long Romil!");
 	print_map(&vars);
+	check_if_doable(&vars);
 	mlx_key_hook(vars.win, inputs, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, &vars);
 	mlx_loop(vars.mlx);

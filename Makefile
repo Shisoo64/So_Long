@@ -42,15 +42,20 @@ OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
-	
+
+
 $(LIBFT) :
 	make -C libft/
 
 $(MLX) :
 	make -C mlx_linux/
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
+$(NAME): echo $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(MLX) -lXext -lX11 -o $(NAME)
+	@echo "\033[1;32m📦 Program compiled!\033[0m"
+
+echo :
+	@echo "\e[5m🗜️  Program compiling...\033[0m"
 
 bonus : $(OBJS_BONUS) $(LIBFT) $(MLX)
 	$(CC) $(OBJS_BONUS) $(CFLAGS) $(LIBFT) $(MLX) -lXext -lX11 -o $(NAME)
@@ -60,10 +65,13 @@ clean :
 	rm -f $(OBJS_BONUS)
 	make -C libft/ fclean
 	make -C mlx_linux/ clean
+	@echo "\033[92m🧹 Program cleaned!\033[0m"
 
 fclean : clean
 	rm -rf $(NAME)
+	@echo "\033[92mAnd executable too!\033[0m"
 
 re : fclean all
 
 .PHONY : all re clean fclean
+.SILENT :

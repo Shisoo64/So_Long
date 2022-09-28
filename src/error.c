@@ -12,8 +12,6 @@
 
 #include "so_long.h"
 
-
-
 void	newnode(t_node **head, int y, int x)
 {
 	t_node	*node;
@@ -34,23 +32,22 @@ void	newnode(t_node **head, int y, int x)
 	*head = node;
 }
 
-void	check_doable(char **mapy, t_vars *v)
+void	check_if_doable(t_vars *v)
 {
-	char	**map = mapy;
 	t_node	*move;
+	t_node	*tmp;
+	char **map;
 	int	x;
 	int	y;
 	int c;
 	int	e;
 
-	//c = v->collec;
-	c = 8;
-
+	map = create_map(v);
+	move = NULL;
+	c = v->collec;
 	e = 0;
-
-	x = 7;
-	y = 2;
-
+	x = v->p_x;
+	y = v->p_y;
 	newnode(&move, y, x);
 	while (move != NULL)
 	{
@@ -60,35 +57,90 @@ void	check_doable(char **mapy, t_vars *v)
 			e++;
 		if (c == 0 && e == 1)
 			return ;
+		map[y][x] = 'V';
 		if (y - 1 > 0 && map[y - 1][x] != '1' && map[y - 1][x] != 'V')
 			newnode(&move, y--, x);
 		else if (x - 1 > 0 && map[y][x - 1] != '1' && map[y][x - 1] != 'V')
 			newnode(&move, y, x--);
-		else if (y + 1 < v->map_y - 2 && map[y + 1][x] != '1' && map[y + 1][x] != 'V')
+		else if (y + 1 < v->map_y && map[y + 1][x] != '1' && map[y + 1][x] != 'V')
 			newnode(&move, y++, x);
-		else if (x + 1 < v->map_x - 2 && map[y][x + 1] != '1' && map[y][x + 1] != 'V')
+		else if (x + 1 < v->map_x && map[y][x + 1] != '1' && map[y][x + 1] != 'V')
 			newnode(&move, y, x++);
 		else
 		{
 			if (move->prev == NULL)
 				ft_error(v, "Error\nMap is undoable.\n");
-			t_node	*tmp;
 			tmp = move;
 			move = move->prev;
 			free(tmp);
-			map[y][x] = 'V';
 			y = move->y;
 			x = move->x;
 		}
 	}
 }
 
+
+/*
+void	check_doable_ext(char **map, t_vars *v, int c[2], t_node *move)
+{
+	t_node	*tmp;
+
+	map[c[1]][c[0]] = 'V';
+	if (c[1] - 1 > 0 && map[c[1] - 1][c[0]] != '1'\
+		&& map[c[1] - 1][c[0]] != 'V')
+		newnode(&move, c[1]--, c[0]);
+	else if (c[0] - 1 > 0 && map[c[1]][c[0] - 1] != '1'\
+		&& map[c[1]][c[0] - 1] != 'V')
+		newnode(&move, c[1], c[0]--);
+	else if (c[1] + 1 < v->map_y && map[c[1] + 1][c[0]] != '1'\
+		&& map[c[1] + 1][c[0]] != 'V')
+		newnode(&move, c[1]++, c[0]);
+	else if (c[0] + 1 < v->map_x && map[c[1]][c[0] + 1] != '1'\
+		&& map[c[1]][c[0] + 1] != 'V')
+		newnode(&move, c[1], c[0]++);
+	else
+	{
+		if (move->prev == NULL)
+			ft_error(v, "Error\nMap is undoable.\n");
+		tmp = move;
+		move = move->prev;
+		free(tmp);
+		c[1] = move->y;
+		c[0] = move->x;
+	}
+}
+
+void	check_doable(char **map, t_vars *v)
+{
+	t_node	*move;
+	int		coord[2];
+	int		c;
+	int		e;
+
+	c = v->collec;
+	move = NULL;
+	e = 0;
+	coord[0] = v->p_x;
+	coord[1] = v->p_y;
+	newnode(&move, coord[1], coord[0]);
+	while (move != NULL)
+	{
+		if (map[coord[1]][coord[0]] == 'C')
+			c--;
+		else if (map[coord[1]][coord[0]] == 'E')
+			e++;
+		if (c == 0 && e == 1)
+			return ;
+		check_doable_ext(map, v, coord, move);
+	}
+}
+*/
+
 void	check_map(char **map, t_vars *v)
 {
 	check_rectangle(map, v);
 	check_borders(map, v);
 	check_items(map, v);
-	check_doable(map, v);
 	check_map_ext(v);
 }
 

@@ -77,8 +77,6 @@ void	print_map(t_vars *v)
 				v->p_y = y;
 				ft_put_win(v, x, y, v->sprites.p);
 			}
-			if (v->map[y][x] == 'E')
-				ft_put_win(v, x, y, v->sprites.e);
 			print_map_ext(v, v->map[y][x], y, x);
 		}
 	}
@@ -86,6 +84,8 @@ void	print_map(t_vars *v)
 
 void	print_map_ext(t_vars *v, char c, int y, int x)
 {
+	if (v->map[y][x] == 'E')
+		ft_put_win(v, x, y, v->sprites.e);
 	if (c == 'C')
 	{
 		ft_put_win(v, x, y, v->sprites.c);
