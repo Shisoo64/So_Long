@@ -32,6 +32,62 @@ void	newnode(t_node **head, int y, int x)
 	*head = node;
 }
 
+/*
+void	check_doable_ext(int dir[2], t_vars *v, char **map, t_node *move)
+{
+	t_node	*tmp;
+
+	if (dir[0] - 1 > 0 && map[dir[0] - 1][dir[1]] != '1' && map[dir[0] - 1][dir[1]] != 'V')
+		newnode(&move, dir[0]--, dir[1]);
+	else if (dir[1] - 1 > 0 && map[dir[0]][dir[1] - 1] != '1' && map[dir[0]][dir[1] - 1] != 'V')
+		newnode(&move, dir[0], dir[1]--);
+	else if (dir[0] + 1 < v->map_y && map[dir[0] + 1][dir[1]] != '1' && map[dir[0] + 1][dir[1]] != 'V')
+		newnode(&move, dir[0]++, dir[1]);
+	else if (dir[1] + 1 < v->map_x && map[dir[0]][dir[1] + 1] != '1' && map[dir[0]][dir[1] + 1] != 'V')
+		newnode(&move, dir[0], dir[1]++);
+	else
+	{
+		if (move->prev == NULL)
+			ft_error(v, "Error\nMap is undoable.\n");
+		tmp = move;
+		move = move->prev;
+		free(tmp);
+		dir[0] = move->y;
+		dir[1] = move->x;
+	}
+}
+
+void	check_if_doable(t_vars *v)
+{
+	t_node	*move;
+	char **map;
+	int	dir[2];
+	int c;
+	int	e;
+
+
+	map = create_map(v);
+	move = NULL;
+	c = v->collec;
+	e = 0;
+	dir[1] = v->p_x;
+	dir[0] = v->p_y;
+	newnode(&move, dir[0], dir[1]);
+	while (move != NULL)
+	{
+		if (map[dir[0]][dir[1]] == 'C')
+			c--;
+		else if (map[dir[0]][dir[1]] == 'E')
+			e++;
+		if (c == 0 && e == 1)
+			return ;
+		map[dir[0]][dir[1]] = 'V';
+		check_doable_ext(dir, v, map, move);
+	}
+}
+*/
+
+
 void	check_if_doable(t_vars *v)
 {
 	t_node	*move;
