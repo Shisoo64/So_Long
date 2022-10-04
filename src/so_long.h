@@ -6,14 +6,14 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/08/24 15:27:43 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/01 19:06:44 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <fcntl.h>
+# include <fcntl.h>
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 
@@ -22,8 +22,8 @@
 typedef struct s_node
 {
 	struct s_node	*prev;
-	int	y;
-	int	x;
+	int				y;
+	int				x;
 }				t_node;
 
 typedef struct s_sprites {
@@ -55,6 +55,8 @@ typedef struct s_vars {
 	int			p_dir;
 	int			p_x;
 	int			p_y;
+	int			pfx;
+	int			pfy;
 	t_sprites	sprites;
 }				t_vars;
 

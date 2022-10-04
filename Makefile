@@ -6,11 +6,12 @@
 #    By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:20:40 by rlaforge          #+#    #+#              #
-#    Updated: 2022/08/24 15:41:58 by rlaforge         ###   ########.fr        #
+#    Updated: 2022/10/01 19:02:53 by rlaforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	src/main.c \
+		src/pathfinding.c \
 		src/utils.c \
 		src/sprites.c \
 		src/map.c \
