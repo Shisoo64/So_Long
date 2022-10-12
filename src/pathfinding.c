@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:53:21 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/04 19:49:10 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/12 19:12:34 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	newnode(t_node **head, int y, int x)
 		node->x = x;
 		node->prev = NULL;
 	}
-	if (!*head || !head)
+	if (!head || !*head)
 	{
 		*head = node;
 		return ;
@@ -48,39 +48,43 @@ void	check_if_doable(t_vars *v)
 	e = 0;
 	x = v->p_x;
 	y = v->p_y;
+	printf("\n\nPLAYER IS AT : X:%i, Y:%i\n\n", x, y);
 	newnode(&move, y, x);
 	while (move != NULL)
 	{
 		if (map[y][x] == 'C')
 		{
 			c--;
-			printf("COIN");
+			printf("COIN\n");
 		}
 		else if (map[y][x] == 'E')
+		{
 			e++;
+			printf("EXIT\n");
+		}
 		if (c == 0 && e == 1)
 			return ;
-		ft_printf("char = %c\n", map[y][x]);
+		ft_printf("char = %c, x=%d y=%d\n", map[y][x], x, y);
 		map[y][x] = 'V';
 		if (map[y][x + 1] != '1' && map[y][x + 1] != 'V')
 		{
-			printf("right, x=%d y=%d\n\n", x, y);
-			newnode(&move, y, x++);
+			printf("right\n\n");
+			newnode(&move, y, ++x);
 		}
 		else if (map[y - 1][x] != '1' && map[y - 1][x] != 'V')
 		{
-			printf("Down, x=%d y=%d\n\n", x, y);
-			newnode(&move, y--, x);
+			printf("Up\n\n");
+			newnode(&move, --y, x);
 		}
 		else if (map[y][x - 1] != '1' && map[y][x - 1] != 'V')
 		{
-			printf("Up, x=%d y=%d\n\n", x, y);
-			newnode(&move, y, x--);
+			printf("Left\n\n");
+			newnode(&move, y, --x);
 		}
 		else if (map[y + 1][x] != '1' && map[y + 1][x] != 'V')
 		{
-			ft_printf("Left, x=%d y=%d\n\n", x, y);
-			newnode(&move, y++, x);
+			ft_printf("Down\n\n");
+			newnode(&move, ++y, x);
 		}
 		else
 		{
