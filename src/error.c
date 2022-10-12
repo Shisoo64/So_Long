@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:08:28 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/01 19:04:28 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/12 20:02:38 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	check_map(char **map, t_vars *v)
 {
+	check_map_ext(v);
 	check_rectangle(map, v);
 	check_borders(map, v);
 	check_items(map, v);
-	check_map_ext(v);
 }
 
 int	check_rectangle(char **map, t_vars *v)
@@ -26,8 +26,17 @@ int	check_rectangle(char **map, t_vars *v)
 
 	y = -1;
 	while (map[++y])
-		if (ft_strlen(map[y]) != ft_strlen(map[0]))
-			ft_error(v, "Error\nMap is not a rectangle.\n");
+	{
+		if (map[y][ft_strlen(map[y]) - 1] == '\n')
+		{
+			if (ft_strlen(map[y]) != ft_strlen(map[0]))
+				ft_error(v, "Error\nMap is not a rectangle.\n");
+		}
+		else
+			if (ft_strlen(map[y]) != ft_strlen(map[0]) - 1)
+				ft_error(v, "Error\nMap is not rectangle AND you forgot the\\n, " \
+					"u tried to have me, you're a big crazy man, or manette\n");
+	}
 	return (0);
 }
 
@@ -40,7 +49,7 @@ int	check_borders(char **map, t_vars *v)
 	while (map[++y])
 	{
 		x = -1;
-		while (map[y][++x] != '\n')
+		while (map[y][++x] && map[y][x] != '\n')
 		{
 			if (y == 0 && map[y][x] != '1')
 				ft_error(v, "Error\nWrong map border.\n");
@@ -68,7 +77,7 @@ void	check_items(char **map, t_vars *v)
 	while (map[++y])
 	{
 		x = -1;
-		while (map[y][++x] != '\n')
+		while (map[y][++x] && map[y][x] != '\n')
 		{
 			if (map[y][x] == 'E')
 				i[0]++;
@@ -77,7 +86,7 @@ void	check_items(char **map, t_vars *v)
 			else if (map[y][x] == 'C')
 				i[2]++;
 			else if (map[y][x] != '1' && map[y][x] != '0' \
-			 && map[y][x] != 'C')
+				&& map[y][x] != 'C')
 				ft_error(v, "Error\nWrong item on map.\n");
 		}
 	}

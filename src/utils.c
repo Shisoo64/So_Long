@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:31 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/01 20:07:07 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/12 20:08:10 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int	ft_strlen_n(const char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] != '\n' && s[i++])
-		;
+	if (!s)
+		return (0);
+	while (s[i] && s[i] != '\n')
+		i++;
 	return (--i);
 }
 
@@ -48,6 +50,11 @@ void	check_map_ext(t_vars *v)
 
 	i = 1;
 	ext = ".ber";
+	if (ft_strlen(v->mapname) < 5 || v->mapname[ft_strlen(v->mapname) - 1] == '/')
+	{
+		ft_error(v, "Error\nNo map name, you tried to have me, " \
+			"big dinguo that you are!\n");
+	}
 	while (++i < 5)
 		if (v->mapname[ft_strlen(v->mapname) - i] != ext[4 - i])
 			ft_error(v, "Error\nProblem with map extension.\n");
