@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/01 19:06:44 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:57:57 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_vars {
 	int			p_dir;
 	int			p_x;
 	int			p_y;
-	int			pfx;
-	int			pfy;
+	int			vx;
+	int			vy;
 	t_sprites	sprites;
 }				t_vars;
 
@@ -69,7 +69,6 @@ enum e_keycode
 	ESC = 0xFF1B
 };
 
-void		free_map(t_vars *vars);
 void		free_img(t_vars *v);
 void		exit_game(t_vars *vars);
 void		exit_game_light(t_vars *vars, int map);
@@ -84,6 +83,7 @@ void		ft_put_win(t_vars *v, int x, int y, void *sprite);
 void		display_moves(t_vars *v);
 void		print_map_ext(t_vars *v, char c, int y, int x);
 void		check_map(char **map, t_vars *v);
+void		free_map(t_vars *vars, char **map);
 int			ft_error(t_vars *v, char *str);
 void		check_items(char **map, t_vars *v);
 int			check_borders(char **map, t_vars *v);

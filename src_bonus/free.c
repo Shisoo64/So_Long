@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 19:52:00 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/28 19:52:01 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:10:58 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	exit_game_light(t_vars *vars, int map)
 	exit(0);
 }
 
-void	free_map(t_vars *vars)
+void	free_map(t_vars *vars, char *map)
 {
 	int	y;
 
 	y = 0;
 	while (y < vars->map_y)
-		free(vars->map[y++]);
-	free(vars->map);
+		free(map[y++]);
+	free(map);
 }
 
 void	free_img(t_vars *v)

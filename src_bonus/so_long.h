@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/08/23 16:04:23 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:11:24 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ enum e_keycode
 	ESC = 0xFF1B
 };
 
-void		free_map(t_vars *vars);
 void		free_img(t_vars *v);
 void		free_enemies(t_vars *v);
 void		exit_game(t_vars *vars);
@@ -111,6 +110,7 @@ void		display_moves(t_vars *v);
 void		print_map_ext(t_vars *v, char c, int y, int x);
 void		win_game(t_vars *v);
 void		check_map(char **map, t_vars *v);
+void		free_map(t_vars *vars, char *map);
 int			ft_error(t_vars *v, char *str);
 void		check_items(char **map, t_vars *v);
 int			check_borders(char **map, t_vars *v);
