@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/13 14:57:57 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:39:20 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_sprites {
 	void	*w_ur;
 	void	*w_l;
 	void	*w_r;
-
 }				t_sprites;
 
 typedef struct s_vars {

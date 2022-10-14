@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:53:21 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/13 15:28:10 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:08:19 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,28 +93,30 @@ void	check_if_doable(t_vars *v)
 }
 */
 
-
-void	check_doable_ext(t_vars *v, char ***map, t_node *move)
+void	check_doable_ext(t_vars *v, char **map, t_node **move)
 {
 	t_node	*tmp;
 
-	if ((*map)[v->vy][v->vx + 1] != '1' && (*map)[v->vy][v->vx + 1] != 'V')
-		newnode(&move, v->vy, ++v->vx);
-	else if ((*map)[v->vy - 1][v->vx] != '1' && (*map)[v->vy - 1][v->vx] != 'V')
-		newnode(&move, --v->vy, v->vx);
-	else if ((*map)[v->vy][v->vx - 1] != '1' && (*map)[v->vy][v->vx - 1] != 'V')
-		newnode(&move, v->vy, --v->vx);
-	else if ((*map)[v->vy + 1][v->vx] != '1' && (*map)[v->vy + 1][v->vx] != 'V')
-		newnode(&move, ++v->vy, v->vx);
+	if (map[v->vy][v->vx + 1] != '1' && map[v->vy][v->vx + 1] != 'V')
+	{
+		newnode(move, v->vy, ++v->vx);
+		printf("right\n");
+	}
+	else if (map[v->vy - 1][v->vx] != '1' && map[v->vy - 1][v->vx] != 'V')
+		newnode(move, --v->vy, v->vx);
+	else if (map[v->vy][v->vx - 1] != '1' && map[v->vy][v->vx - 1] != 'V')
+		newnode(move, v->vy, --v->vx);
+	else if (map[v->vy + 1][v->vx] != '1' && map[v->vy + 1][v->vx] != 'V')
+		newnode(move, ++v->vy, v->vx);
 	else
 	{
-		if (move->prev == NULL)
+		if ((*move)->prev == NULL)
 			ft_error(v, "Error\nMap is undoable.\n");
-		tmp = move;
-		move = move->prev;
+		tmp = *move;
+		*move = (*move)->prev;
 		free(tmp);
-		v->vy = move->y;
-		v->vx = move->x;
+		v->vy = (*move)->y;
+		v->vx = (*move)->x;
 	}
 }
 
@@ -141,7 +143,7 @@ void	check_if_doable(t_vars *v)
 		if (c == 0 && e == 1)
 			return ;
 		map[v->vy][v->vx] = 'V';
-		check_doable_ext(v, &map, move);
+		check_doable_ext(v, map, &move);
 	}
 	free_pathfinding(v, move, map);
 }
