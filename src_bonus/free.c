@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 19:52:00 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/13 14:10:58 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:27:56 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_game(t_vars *vars)
 {
-	free_map(vars);
+	free_map(vars, vars->map);
 	free_img(vars);
 	free(vars->m_coord[0]);
 	free(vars->m_coord[1]);
@@ -29,14 +29,14 @@ void	exit_game(t_vars *vars)
 void	exit_game_light(t_vars *vars, int map)
 {
 	if (map)
-		free_map(vars);
+		free_map(vars, vars->map);
 	free_img(vars);
 	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	exit(0);
 }
 
-void	free_map(t_vars *vars, char *map)
+void	free_map(t_vars *vars, char **map)
 {
 	int	y;
 

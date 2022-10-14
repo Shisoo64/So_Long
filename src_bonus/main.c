@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/08/22 19:27:08 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:53:06 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ int	main(int ac, char **av)
 	print_map(&vars);
 	get_mouse_coord(&vars);
 	get_enemy_coord(&vars);
+	printf("1printf: %d\n", vars.p_x);
+	ft_printf("1 p_y [%d]\n", vars.p_y);
+	check_if_doable(&vars);
 	mlx_key_hook(vars.win, inputs, &vars);
 	mlx_loop_hook(vars.mlx, frames, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, &vars);

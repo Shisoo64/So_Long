@@ -6,7 +6,7 @@
 #    By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 16:20:40 by rlaforge          #+#    #+#              #
-#    Updated: 2022/10/01 19:02:53 by rlaforge         ###   ########.fr        #
+#    Updated: 2022/10/14 19:46:37 by rlaforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS =	src/main.c \
 		src/error.c
 
 SRCS_BONUS =	src_bonus/main.c \
+				src/pathfinding.c \
 				src_bonus/utils.c \
 				src_bonus/utils2.c \
 				src_bonus/enemies.c \
@@ -34,7 +35,7 @@ LIBFT = libft/libft.a
 
 MLX = mlx_linux/libmlx.a
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g3
 
 NAME = so_long
 

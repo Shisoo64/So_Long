@@ -6,12 +6,11 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:53:21 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/14 19:53:49 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:46:06 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 void	newnode(t_node **head, int y, int x)
 {
 	t_node	*node;
@@ -76,11 +75,12 @@ void	check_if_doable(t_vars *v)
 	int		c;
 	int		e;
 
+	printf("printf: %d\n", v->p_x);
+	ft_printf("ft_printf: %d\n", v->p_x);
 	map = create_map(v);
 	move = NULL;
 	c = v->collec;
 	e = 0;
-	ft_printf("2 p_y [%d]\n", v->p_y);
 	v->vx = v->p_x;
 	v->vy = v->p_y;
 	newnode(&move, v->vy, v->vx);

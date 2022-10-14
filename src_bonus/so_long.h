@@ -6,14 +6,13 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/13 14:11:24 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:29:56 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <stddef.h>
 # include <string.h>
@@ -30,6 +29,13 @@
 # define ENEMY_FRAMES 3
 # define COLLEC_FRAMES 3
 # define EXIT_FRAMES 2 
+
+typedef struct s_node
+{
+	struct s_node	*prev;
+	int				y;
+	int				x;
+}				t_node;
 
 typedef struct s_sprites {
 	void	*p_l[PLAYER_FRAMES + 1];
@@ -70,6 +76,8 @@ typedef struct s_vars {
 	int			p_dir;
 	int			p_x;
 	int			p_y;
+	int			vx;
+	int			vy;
 	int			game_end;
 	t_sprites	sprites;
 }				t_vars;
@@ -110,12 +118,13 @@ void		display_moves(t_vars *v);
 void		print_map_ext(t_vars *v, char c, int y, int x);
 void		win_game(t_vars *v);
 void		check_map(char **map, t_vars *v);
-void		free_map(t_vars *vars, char *map);
+void		free_map(t_vars *vars, char **map);
 int			ft_error(t_vars *v, char *str);
 void		check_items(char **map, t_vars *v);
 int			check_borders(char **map, t_vars *v);
 int			check_rectangle(char **map, t_vars *v);
 void		check_map_ext(t_vars *v);
 int			ft_printf(const char *str, ...);
+void		check_if_doable(t_vars *v);
 
 #endif
