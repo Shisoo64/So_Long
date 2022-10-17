@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:08:28 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/14 18:53:12 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:58:20 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ int	check_borders(char **map, t_vars *v)
 	return (0);
 }
 
+void	check_items_ext(int i[3], t_vars *v)
+{
+	if (i[0] != 1 || i[2] <= 0 || i[1] != 1)
+		ft_error(v, "Error\nProblem with item numbers.\n");
+}
+
 void	check_items(char **map, t_vars *v)
 {
 	int	x;
@@ -86,17 +92,9 @@ void	check_items(char **map, t_vars *v)
 			else if (map[y][x] == 'C')
 				i[2]++;
 			else if (map[y][x] != '1' && map[y][x] != '0' \
-			&& map[y][x] != 'M' && map[y][x] != 'X' && map[y][x] != 'C')
+			&& map[y][x] != 'M' && map[y][x] != 'X')
 				ft_error(v, "Error\nWrong item on map.\n");
 		}
 	}
-	if (i[0] != 1 || i[2] <= 0 || i[1] != 1)
-		ft_error(v, "Error\nProblem with item numbers.\n");
-}
-
-int	ft_error(t_vars *v, char *str)
-{
-	ft_printf(str, "%s");
-	exit_game_light(v, 1);
-	return (1);
+	check_items_ext(i, v);
 }

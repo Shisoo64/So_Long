@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:09:24 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/08/22 19:04:21 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:55:31 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,11 @@ void	get_enemy_coord(t_vars *v)
 			}
 		}
 	}
+}
+
+int	ft_error(t_vars *v, char *str)
+{
+	ft_printf(str, "%s");
+	exit_game_light(v, 1);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:08:28 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/12 20:02:38 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:50:04 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ void	check_items(char **map, t_vars *v)
 				i[1]++;
 			else if (map[y][x] == 'C')
 				i[2]++;
-			else if (map[y][x] != '1' && map[y][x] != '0' \
-				&& map[y][x] != 'C')
+			else if (map[y][x] != '1' && map[y][x] != '0')
 				ft_error(v, "Error\nWrong item on map.\n");
 		}
 	}

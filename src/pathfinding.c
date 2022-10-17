@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:53:21 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/14 19:53:49 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:37:44 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	check_if_doable(t_vars *v)
 	move = NULL;
 	c = v->collec;
 	e = 0;
-	ft_printf("2 p_y [%d]\n", v->p_y);
 	v->vx = v->p_x;
 	v->vy = v->p_y;
 	newnode(&move, v->vy, v->vx);
