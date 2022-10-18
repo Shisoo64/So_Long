@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:53:21 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/17 14:37:44 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:20:40 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ void	newnode(t_node **head, int y, int x)
 	*head = node;
 }
 
-void	free_pathfinding(t_vars *v, t_node *head, char **map)
+void	free_pathfinding(t_vars *v, t_node **head, char **map)
 {
 	t_node	*tmp;
 
-	while (head)
+	while ((*head)->prev)
 	{
-		tmp = head;
-		head = head->prev;
+		tmp = *head;
+		*head = (*head)->prev;
 		free(tmp);
 	}
+	free(*head);
 	free_map(v, map);
 }
 
@@ -49,6 +50,7 @@ void	check_doable_ext(t_vars *v, char **map, t_node **move)
 {
 	t_node	*tmp;
 
+	map[v->vy][v->vx] = 'V';
 	if (map[v->vy][v->vx + 1] != '1' && map[v->vy][v->vx + 1] != 'V')
 		newnode(move, v->vy, ++v->vx);
 	else if (map[v->vy - 1][v->vx] != '1' && map[v->vy - 1][v->vx] != 'V')
@@ -60,7 +62,11 @@ void	check_doable_ext(t_vars *v, char **map, t_node **move)
 	else
 	{
 		if ((*move)->prev == NULL)
+		{
+			free_pathfinding(v, move, map);
+			mlx_destroy_window(v->mlx, v->win);
 			ft_error(v, "Error\nMap is undoable.\n");
+		}
 		tmp = *move;
 		*move = (*move)->prev;
 		free(tmp);
@@ -90,9 +96,10 @@ void	check_if_doable(t_vars *v)
 		else if (map[v->vy][v->vx] == 'E')
 			e++;
 		if (c == 0 && e == 1)
+		{
+			free_pathfinding(v, &move, map);
 			return ;
-		map[v->vy][v->vx] = 'V';
+		}
 		check_doable_ext(v, map, &move);
 	}
-	free_pathfinding(v, move, map);
 }
