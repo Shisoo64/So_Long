@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:53:21 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/17 14:38:24 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:03:03 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	newnode(t_node **head, int y, int x)
 	*head = node;
 }
 
-void	free_pathfinding(t_vars *v, t_node *head, char **map)
+void	free_pathfinding(t_vars *v, t_node **head, char **map)
 {
 	t_node	*tmp;
 
 	while (head)
 	{
-		tmp = head;
-		head = head->prev;
+		tmp = *head;
+		*head = (*head)->prev;
 		free(tmp);
 	}
 	free_map(v, map);
@@ -60,7 +60,10 @@ void	check_doable_ext(t_vars *v, char **map, t_node **move)
 	else
 	{
 		if ((*move)->prev == NULL)
+		{
+			free_pathfinding(v, move, map);
 			ft_error(v, "Error\nMap is undoable.\n");
+		}
 		tmp = *move;
 		*move = (*move)->prev;
 		free(tmp);
@@ -94,5 +97,5 @@ void	check_if_doable(t_vars *v)
 		map[v->vy][v->vx] = 'V';
 		check_doable_ext(v, map, &move);
 	}
-	free_pathfinding(v, move, map);
+	free_pathfinding(v, &move, map);
 }
