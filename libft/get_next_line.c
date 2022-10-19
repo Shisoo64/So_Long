@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 15:33:26 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/06/13 15:58:34 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:19:44 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ char	*get_next_line(int fd)
 	str = ft_gnl_strjoin(str, save);
 	free(save);
 	str = ft_read(str, fd);
-	save = ft_gnl_substr(str, ft_has_n(str, 0), ft_strlen(str) - ft_has_n(str, 0));
+	save = ft_gnl_substr(str, ft_has_n(str, 0), \
+		ft_strlen(str) - ft_has_n(str, 0));
 	line = ft_gnl_substr(str, 0, ft_has_n(str, 0));
 	return (free(str), line);
 }
