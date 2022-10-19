@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 15:49:15 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/19 16:00:59 by rlaforge         ###   ########.fr       */
+/*   Created: 2022/01/19 17:25:33 by rlaforge          #+#    #+#             */
+/*   Updated: 2022/01/26 15:49:11 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_strcmp(char *s1, char *s2)
 {
-	void	*ptr;
+	int	i;
 
-	if (size >= 65536 || nmemb >= 65536)
-		return (NULL);
-	ptr = malloc(size * nmemb);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, 0, nmemb * size);
-	return (ptr);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

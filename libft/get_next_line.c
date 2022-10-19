@@ -6,13 +6,13 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 15:33:26 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/19 15:19:44 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:13:01 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
 
-int	ft_has_n(char *s, int param)
+static int	ft_has_n(const char *s, int param)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ int	ft_has_n(char *s, int param)
 	return (i);
 }
 
-char	*ft_read(char *str, int fd)
+static char	*ft_read(char *str, int fd)
 {
 	char	*buff;
 	int		i;

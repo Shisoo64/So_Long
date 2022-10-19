@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlaforge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 15:49:15 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/19 16:00:59 by rlaforge         ###   ########.fr       */
+/*   Created: 2022/01/19 18:19:32 by rlaforge          #+#    #+#             */
+/*   Updated: 2022/01/26 15:54:44 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strcat(char *dest, char *src)
 {
-	void	*ptr;
+	int	i;
+	int	n;
 
-	if (size >= 65536 || nmemb >= 65536)
-		return (NULL);
-	ptr = malloc(size * nmemb);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, 0, nmemb * size);
-	return (ptr);
+	i = ft_strlen(dest);
+	n = 0;
+	while (src[n])
+		dest[i + n] = src[n++];
+	dest[i + n] = '\0';
+	return (dest);
 }
