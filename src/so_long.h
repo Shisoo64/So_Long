@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:10 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/14 19:12:44 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:50:13 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_vars {
 	int			map_x;
 	int			collec;
 	int			moves;
-	int			p_dir;
 	int			p_x;
 	int			p_y;
 	int			vx;

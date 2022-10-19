@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:39:33 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/14 19:09:53 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:50:54 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	move_player(int dy, int dx, t_vars *v)
 	int	x;
 	int	y;
 
-	if (dx != 0)
-		v->p_dir = dx;
 	x = v->p_x;
 	y = v->p_y;
 	if (v->map[y][x] == 'P' && (v->map[y + dy][x + dx] == '0' || \
@@ -72,7 +70,6 @@ int	main(int ac, char **av)
 		return (1);
 	vars.mapname = av[1];
 	vars.mlx = mlx_init();
-	vars.p_dir = 1;
 	vars.collec = 0;
 	vars.moves = 1;
 	vars.sprites = get_sprites(vars);
