@@ -121,4 +121,7 @@ void		check_map_ext(t_vars *v);
 int			ft_printf(const char *str, ...);
 void		check_if_doable(t_vars *v);
 
+
+char	*ft_better_strjoin(char **s1, char const *s2);
+
 #endif

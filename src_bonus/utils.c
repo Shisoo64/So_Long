@@ -22,8 +22,10 @@ int	ft_strlen_n(const char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] != '\n' && s[i++])
-		;
+	if (!s)
+		return (0);
+	while (s[i] && s[i] != '\n')
+		i++;
 	return (--i);
 }
 
@@ -60,4 +62,19 @@ void	check_map_ext(t_vars *v)
 	while (++i < 5)
 		if (v->mapname[ft_strlen(v->mapname) - i] != ext[4 - i])
 			ft_error(v, "Error\nProblem with map extension.\n");
+}
+
+char	*ft_better_strjoin(char **s1, char const *s2)
+{
+	char	*tab;
+	int		len;
+
+	len = ft_strlen(*s1) + ft_strlen(s2) + 1;
+	tab = malloc(sizeof(char) * len);
+	if (!tab)
+		return (NULL);
+	ft_strlcpy(tab, *s1, len);
+	ft_strlcat(tab, s2, len);
+	free(*s1);
+	return (tab);
 }
