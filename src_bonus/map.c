@@ -50,11 +50,7 @@ char	**create_map(t_vars *vars)
 	fd = open(vars->mapname, 0);
 	map = malloc(sizeof(char *) * (vars->map_y + 1));
 	while (++i < vars->map_y)
-	{
 		map[i] = get_next_line(fd);
-		if (map[i][vars->map_x + 1] == 0)
-			map[i] = ft_gnl_strjoin(map[i], "\n");
-	}
 	map[vars->map_y] = NULL;
 	close(fd);
 	return (map);

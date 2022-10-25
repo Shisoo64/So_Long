@@ -48,7 +48,7 @@ void	check_map_ext(t_vars *v)
 	i = 1;
 	ext = ".ber";
 	if (ft_strlen(v->mapname) < 5 || \
-		v->mapname[ft_strlen(v->mapname) - 1] == '/')
+		v->mapname[ft_strlen(v->mapname) - 5] == '/')
 	{
 		ft_error(v, "Error\nNo map name, you tried to have me, " \
 			"big dinguo that you are!\n");

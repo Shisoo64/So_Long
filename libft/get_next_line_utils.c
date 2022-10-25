@@ -54,8 +54,7 @@ char	*ft_gnl_strjoin(char *s1, char *s2)
 		return (NULL);
 	ft_gnl_strlcpy(tab, s1, longueur);
 	ft_gnl_strlcat(tab, s2, longueur);
-	free(s1);
-	return (tab);
+	return (free(s1), tab);
 }
 
 int	ft_gnl_strlcat(char *dst, char *src, size_t size)

@@ -76,7 +76,7 @@ int	main(int ac, char **av)
 	vars.map = create_map(&vars);
 	check_map(vars.map, &vars);
 	vars.win = mlx_new_window(vars.mlx, IMG_SIZE * (vars.map_x + 1),
-			IMG_SIZE * (vars.map_y), "So_long Romil!");
+			IMG_SIZE * (vars.map_y), "so_long");
 	print_map(&vars);
 	check_if_doable(&vars);
 	mlx_key_hook(vars.win, inputs, &vars);

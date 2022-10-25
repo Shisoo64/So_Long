@@ -6,7 +6,7 @@
 /*   By: rlaforge <rlaforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:08:28 by rlaforge          #+#    #+#             */
-/*   Updated: 2022/10/17 14:58:20 by rlaforge         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:11:47 by rlaforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_borders(char **map, t_vars *v)
 	while (map[++y])
 	{
 		x = -1;
-		while (map[y][++x] != '\n')
+		while (map[y][++x] && map[y][x] != '\n')
 		{
 			if (y == 0 && map[y][x] != '1')
 				ft_error(v, "Error\nWrong map border.\n");
@@ -83,7 +83,7 @@ void	check_items(char **map, t_vars *v)
 	while (map[++y])
 	{
 		x = -1;
-		while (map[y][++x] != '\n')
+		while (map[y][++x] && map[y][x] != '\n')
 		{
 			if (map[y][x] == 'E')
 				i[0]++;
